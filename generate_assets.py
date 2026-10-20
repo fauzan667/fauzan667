@@ -250,6 +250,137 @@ def generate_header() -> str:
 # ==============================================================================
 # 2. FLOATING CORE TECH STACK & ARSENAL (tech-stack.svg)
 # ==============================================================================
+TECH_ICONS = {
+    # Group 01: Languages & Core Technologies
+    "PHP": '''<ellipse cx="27" cy="27" rx="20" ry="13" fill="#777bb4" fill-opacity="0.2" stroke="#777bb4" stroke-width="2"/>
+        <text x="27" y="32" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="14" fill="#ffffff" text-anchor="middle">php</text>''',
+
+    "Laravel": '''<path d="M 27 13 L 41 20 L 41 35 L 27 42 L 13 35 L 13 20 Z" fill="none" stroke="#ff2d20" stroke-width="2.2"/>
+        <path d="M 27 13 L 27 28 L 41 35" fill="none" stroke="#ff2d20" stroke-width="2.2"/>
+        <path d="M 27 28 L 13 35" fill="none" stroke="#ff2d20" stroke-width="2.2"/>
+        <path d="M 20 16.5 L 34 23.5" fill="none" stroke="#ff5544" stroke-width="1.8"/>
+        <circle cx="27" cy="28" r="2.5" fill="#ff2d20"/>''',
+
+    "HTML5": '''<polygon points="16,13 38,13 36,37 27,41 18,37" fill="#e34f26" fill-opacity="0.2" stroke="#e34f26" stroke-width="2"/>
+        <polygon points="27,16 34.5,16 33,35 27,37.5" fill="#e34f26"/>
+        <text x="27" y="31" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="15" fill="#ffffff" text-anchor="middle">5</text>''',
+
+    "CSS3": '''<polygon points="16,13 38,13 36,37 27,41 18,37" fill="#1572b6" fill-opacity="0.2" stroke="#1572b6" stroke-width="2"/>
+        <polygon points="27,16 34.5,16 33,35 27,37.5" fill="#1572b6"/>
+        <text x="27" y="31" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="15" fill="#ffffff" text-anchor="middle">3</text>''',
+
+    "JavaScript": '''<rect x="15" y="15" width="24" height="24" rx="5" fill="#f7df1e"/>
+        <text x="27" y="33" font-family="'Segoe UI', Arial, sans-serif" font-weight="900" font-size="15" fill="#060814" text-anchor="middle">JS</text>''',
+
+    "TypeScript": '''<rect x="15" y="15" width="24" height="24" rx="5" fill="#3178c6"/>
+        <text x="27" y="33" font-family="'Segoe UI', Arial, sans-serif" font-weight="900" font-size="15" fill="#ffffff" text-anchor="middle">TS</text>''',
+
+    "React": '''<ellipse cx="27" cy="27" rx="15" ry="6" fill="none" stroke="#00f7ff" stroke-width="1.8"/>
+        <ellipse cx="27" cy="27" rx="15" ry="6" fill="none" stroke="#00f7ff" stroke-width="1.8" transform="rotate(60 27 27)"/>
+        <ellipse cx="27" cy="27" rx="15" ry="6" fill="none" stroke="#00f7ff" stroke-width="1.8" transform="rotate(120 27 27)"/>
+        <circle cx="27" cy="27" r="3" fill="#00f7ff"/>''',
+
+    "Next.js": '''<circle cx="27" cy="27" r="14" fill="#060814" stroke="#ffffff" stroke-width="2"/>
+        <path d="M 22 35 L 22 19 L 31.5 34" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="31.5" y1="19" x2="31.5" y2="26" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>''',
+
+    "Node.js": '''<polygon points="27,13 39,20 39,34 27,41 15,34 15,20" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M 21 29 Q 27 20 33 24 Q 27 35 21 29 Z" fill="#22c55e"/>''',
+
+    "Python": '''<g transform="translate(1,0)">
+          <path d="M 25 14 C 20 14 18 16 18 19 L 18 22 L 26 22 L 26 23 L 16 23 C 13 23 11 25 11 28 C 11 32 13 33 16 33 L 18 33 L 18 30 C 18 27 20 25 23 25 L 29 25 C 31 25 33 23 33 21 L 33 17 C 33 14 30 14 25 14 Z" fill="#38bdf8"/>
+          <circle cx="21" cy="18" r="1.2" fill="#060814"/>
+          <path d="M 27 40 C 32 40 34 38 34 35 L 34 32 L 26 32 L 26 31 L 36 31 C 39 31 41 29 41 26 C 41 22 39 21 36 21 L 34 21 L 34 24 C 34 27 32 29 29 29 L 23 29 C 21 29 19 31 19 33 L 19 37 C 19 40 22 40 27 40 Z" fill="#facc15"/>
+          <circle cx="31" cy="36" r="1.2" fill="#060814"/>
+        </g>''',
+
+    # Group 02: Database & Cloud Environment
+    "MySQL": '''<ellipse cx="27" cy="18" rx="13" ry="5" fill="none" stroke="#00758f" stroke-width="1.8"/>
+        <path d="M 14 18 L 14 26 C 14 28.5 19.8 30.8 27 30.8 C 34.2 30.8 40 28.5 40 26 L 40 18" fill="none" stroke="#00758f" stroke-width="1.8"/>
+        <path d="M 14 26 L 14 34 C 14 36.5 19.8 38.8 27 38.8 C 34.2 38.8 40 36.5 40 34 L 40 26" fill="none" stroke="#00f7ff" stroke-width="1.8"/>
+        <path d="M 22 23 Q 27 18 32 22 Q 30 27 25 29" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>''',
+
+    "PostgreSQL": '''<circle cx="27" cy="27" r="14" fill="#336791" fill-opacity="0.25" stroke="#336791" stroke-width="2"/>
+        <path d="M 21 21 C 24 18 30 18 33 21 C 36 24 35 29 32 31 C 30 33 28 34 28 38 C 27 38 26 38 26 36 C 26 34 27 32 28 30" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="23" cy="24" r="1.5" fill="#93c5fd"/>
+        <path d="M 18 26 C 17 30 20 34 23 35" fill="none" stroke="#93c5fd" stroke-width="1.6"/>''',
+
+    "MongoDB": '''<path d="M 27 13 C 27 13 17 22 17 29 C 17 35 21.5 39 27 41 C 32.5 39 37 35 37 29 C 37 22 27 13 27 13 Z" fill="#00ed64" fill-opacity="0.2" stroke="#00ed64" stroke-width="2"/>
+        <path d="M 27 15 L 27 39" stroke="#00ed64" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M 27 25 C 24 28 22 30 21 32" stroke="#00ed64" stroke-width="1.2"/>
+        <path d="M 27 22 C 30 25 32 27 33 29" stroke="#00ed64" stroke-width="1.2"/>''',
+
+    "Git": '''<g transform="translate(1,0)">
+          <rect x="18" y="18" width="16" height="16" rx="3.5" transform="rotate(45 26 26)" fill="#f05032"/>
+          <line x1="21" y1="21" x2="31" y2="31" stroke="#ffffff" stroke-width="2"/>
+          <line x1="26" y1="26" x2="31" y2="21" stroke="#ffffff" stroke-width="2"/>
+          <circle cx="21" cy="21" r="2.2" fill="#ffffff"/>
+          <circle cx="31" cy="31" r="2.2" fill="#ffffff"/>
+          <circle cx="31" cy="21" r="2.2" fill="#ffffff"/>
+        </g>''',
+
+    "GitHub": '''<g transform="translate(1,1)">
+          <path d="M 26 13 C 18.8 13 13 18.8 13 26 C 13 31.8 16.7 36.6 22 38.3 C 22.6 38.5 22.8 38 22.8 37.7 L 22.8 35.6 C 19.2 36.4 18.4 33.9 18.4 33.9 C 17.8 32.4 17 32 17 32 C 15.8 31.2 17.1 31.2 17.1 31.2 C 18.4 31.3 19.1 32.6 19.1 32.6 C 20.3 34.6 22.2 34 23 33.7 C 23.1 32.8 23.5 32.2 23.9 31.8 C 21 31.5 18 30.4 18 25.3 C 18 23.9 18.5 22.7 19.3 21.8 C 19.2 21.4 18.7 20.1 19.5 18.3 C 19.5 18.3 20.6 18 23 19.6 C 24 19.3 25.1 19.2 26.2 19.2 C 27.3 19.2 28.4 19.3 29.4 19.6 C 31.8 18 32.9 18.3 32.9 18.3 C 33.7 20.1 33.2 21.4 33.1 21.8 C 33.9 22.7 34.4 23.9 34.4 25.3 C 34.4 30.4 31.4 31.5 28.5 31.8 C 29 32.2 29.4 33.1 29.4 34.3 L 29.4 37.7 C 29.4 38 29.6 38.5 30.2 38.3 C 35.3 36.6 39 31.8 39 26 C 39 18.8 33.2 13 26 13 Z" fill="#f0f6fc"/>
+        </g>''',
+
+    "VS Code": '''<path d="M 37 14 L 28 22 L 23 18 L 17 22 L 15 24 L 17 26 L 23 30 L 28 26 L 37 34 L 40 32 L 40 16 Z" fill="none" stroke="#007acc" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M 37 14 L 22 27 L 17 24 L 28 32 L 37 34 Z" fill="#007acc" opacity="0.6"/>
+        <path d="M 37 14 L 40 16 L 40 32 L 37 34 Z" fill="#007acc"/>
+        <path d="M 28 22 L 37 14 L 37 34 L 28 26 Z" fill="#38bdf8" opacity="0.8"/>''',
+
+    "Figma": '''<rect x="18" y="14" width="9" height="9" rx="4.5" fill="#f24e1e"/>
+        <rect x="27" y="14" width="9" height="9" rx="4.5" fill="#ff7262"/>
+        <rect x="18" y="23" width="9" height="9" rx="4.5" fill="#a259ff"/>
+        <circle cx="31.5" cy="27.5" r="4.5" fill="#1abcfe"/>
+        <path d="M 18 32 H 27 V 36.5 A 4.5 4.5 0 0 1 18 36.5 Z" fill="#0acf83"/>''',
+
+    "Vercel": '''<polygon points="27,15 39,37 15,37" fill="#ffffff"/>''',
+
+    "Docker": '''<path d="M 13 29 C 13 35 19 37 28 37 C 37 37 41 32 41 29 C 39 28.5 36 29 34 28 C 33 26 35 24 36 23 C 33 23 30 25 29 27 C 25 27 22 27 18 29 C 16 29 14 29 13 29 Z" fill="#2496ed"/>
+        <circle cx="18" cy="31" r="1.3" fill="#ffffff"/>
+        <rect x="19" y="23" width="3.2" height="3.2" fill="#38bdf8"/>
+        <rect x="23.5" y="23" width="3.2" height="3.2" fill="#38bdf8"/>
+        <rect x="28" y="23" width="3.2" height="3.2" fill="#38bdf8"/>
+        <rect x="23.5" y="19" width="3.2" height="3.2" fill="#38bdf8"/>
+        <rect x="28" y="19" width="3.2" height="3.2" fill="#38bdf8"/>''',
+
+    # Group 03: AI Coding Assistants & Agents
+    "ChatGPT": '''<g transform="translate(27,27) scale(0.95)">
+        <path d="M 0 -13 C 4 -13 8 -10 9 -6 L 9 -2 L 12 -2 C 15 -2 17 1 16 4 L 14 8 L 16 10 C 18 12 17 16 14 17 L 11 18 L 10 21 C 8 24 5 25 2 24 L -2 22 L -4 24 C -7 26 -11 25 -12 22 L -13 18 L -16 18 C -19 17 -20 13 -18 10 L -16 8 L -18 5 C -20 2 -18 -2 -15 -3 L -11 -3 L -10 -7 C -9 -11 -5 -13 0 -13 Z" fill="none" stroke="#00a67e" stroke-width="2"/>
+        <circle cx="0" cy="0" r="4.5" fill="#00a67e" fill-opacity="0.35" stroke="#00a67e" stroke-width="1.8"/>
+      </g>''',
+
+    "Gemini": '''<path d="M 27 13 C 27 20.5 21.5 26 14 27 C 21.5 28 27 33.5 27 41 C 27 33.5 32.5 28 40 27 C 32.5 26 27 20.5 27 13 Z" fill="url(#geminiGrad)" filter="url(#techSoftGlow)"/>''',
+
+    "Claude": '''<g transform="translate(27,27)">
+        <line x1="0" y1="-12" x2="0" y2="12" stroke="#d97706" stroke-width="3" stroke-linecap="round"/>
+        <line x1="-12" y1="0" x2="12" y2="0" stroke="#d97706" stroke-width="3" stroke-linecap="round"/>
+        <line x1="-8.5" y1="-8.5" x2="8.5" y2="8.5" stroke="#d97706" stroke-width="3" stroke-linecap="round"/>
+        <line x1="-8.5" y1="8.5" x2="8.5" y2="-8.5" stroke="#d97706" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="0" cy="0" r="3.2" fill="#fbbf24"/>
+      </g>''',
+
+    "Antigravity": '''<g transform="translate(27,27)">
+        <circle cx="0" cy="0" r="12" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-dasharray="8 4"/>
+        <polygon points="0,-9 7.8,4.5 -7.8,4.5" fill="none" stroke="#00f7ff" stroke-width="1.8"/>
+        <polygon points="0,9 -7.8,-4.5 7.8,-4.5" fill="none" stroke="#a855f7" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="2.8" fill="#00ff88" filter="url(#techSoftGlow)"/>
+      </g>''',
+
+    "GitHub Copilot": '''<path d="M 19 25 C 19 20 22.6 16 27 16 C 31.4 16 35 20 35 25 C 35 28 34 30 32 32 L 32 35 C 32 36 31 37 30 37 L 24 37 C 23 37 22 36 22 35 L 22 32 C 20 30 19 28 19 25 Z" fill="none" stroke="#ffffff" stroke-width="2"/>
+        <path d="M 21 24 C 21 22 23.5 21 27 21 C 30.5 21 33 22 33 24 C 33 26 30.5 27 27 27 C 23.5 27 21 26 21 24 Z" fill="#a855f7" stroke="#00f7ff" stroke-width="1.2"/>
+        <circle cx="24" cy="24" r="1" fill="#ffffff"/>
+        <circle cx="30" cy="24" r="1" fill="#ffffff"/>''',
+
+    "Cursor": '''<path d="M 20 16 L 20 34 L 25 29 L 30 36 L 33 34 L 28 27 L 34 26 Z" fill="#00f7ff" stroke="#0b1126" stroke-width="1.5"/>''',
+
+    "Perplexity": '''<g transform="translate(27,27)">
+        <rect x="-10" y="-3" width="20" height="6" rx="3" fill="none" stroke="#22d3ee" stroke-width="1.8"/>
+        <rect x="-3" y="-10" width="6" height="20" rx="3" fill="none" stroke="#22d3ee" stroke-width="1.8"/>
+        <circle cx="0" cy="0" r="2.5" fill="#00f7ff"/>
+      </g>'''
+}
+
 def generate_tech_stack() -> str:
     groups = [
         {
@@ -299,23 +430,14 @@ def generate_tech_stack() -> str:
                 ("Perplexity", "#22d3ee"),
             ],
         },
-        {
-            "num": "04",
-            "title": "LLM Platforms &amp; Open Models",
-            "color": "#ff7000",
-            "tools": [
-                ("Ollama", "#ffffff"),
-                ("Hugging Face", "#ffcc00"),
-                ("DeepSeek", "#1d4ed8"),
-                ("Mistral AI", "#ff7000"),
-                ("Qwen", "#6366f1"),
-                ("Meta Llama", "#0284c7"),
-            ],
-        },
     ]
 
     rendered_groups = []
-    current_y = 95
+    current_y = 100
+
+    tile_size = 54
+    tile_gap = 28
+    start_x = 62
 
     for g in groups:
         g_color = g["color"]
@@ -333,30 +455,27 @@ def generate_tech_stack() -> str:
 
         badge_y = current_y + 36
         badge_items = []
-        badge_x = 36
-        row_height = 44
 
-        for tool_name, tool_color in g["tools"]:
-            badge_width = max(86, len(tool_name) * 9 + 36)
-            if badge_x + badge_width > 904:
-                badge_x = 36
-                badge_y += row_height
+        for idx, (tool_name, tool_color) in enumerate(g["tools"]):
+            bx = start_x + idx * (tile_size + tile_gap)
+            icon_svg = TECH_ICONS.get(tool_name, f'''<circle cx="27" cy="27" r="10" fill="{tool_color}"/>''')
 
             badge_items.append(f'''
-      <!-- Tool: {tool_name} -->
-      <g transform="translate({badge_x}, {badge_y})">
-        <ellipse cx="{badge_width/2:.1f}" cy="28" rx="{badge_width/2 - 6:.1f}" ry="5" fill="{tool_color}" opacity="0.25" filter="url(#techSoftGlow)"/>
-        <rect x="0" y="0" width="{badge_width}" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
-        <rect x="0" y="0" width="{badge_width}" height="32" rx="8" fill="none" stroke="{tool_color}" stroke-width="1" stroke-opacity="0.35"/>
-        <circle cx="14" cy="16" r="3.5" fill="{tool_color}" filter="url(#techSoftGlow)"/>
-        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">{tool_name}</text>
+      <!-- Tool Tile: {tool_name} (Logo Only) -->
+      <g transform="translate({bx}, {badge_y})">
+        <title>{tool_name}</title>
+        <ellipse cx="27" cy="50" rx="20" ry="5" fill="{tool_color}" opacity="0.32" filter="url(#techSoftGlow)"/>
+        <rect x="0" y="0" width="{tile_size}" height="{tile_size}" rx="12" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="{tile_size}" height="{tile_size}" rx="12" fill="none" stroke="{tool_color}" stroke-width="1.2" stroke-opacity="0.45"/>
+        <path d="M 6 4 Q 27 12 48 4" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.18" fill="none"/>
+        <circle cx="45" cy="9" r="1.8" fill="{tool_color}" opacity="0.75"/>
+        {icon_svg}
       </g>''')
-            badge_x += badge_width + 10
 
         rendered_groups.append(header_svg + "\n" + "".join(badge_items))
-        current_y = badge_y + 54
+        current_y = badge_y + tile_size + 26
 
-    total_height = current_y + 20
+    total_height = current_y + 16
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 {total_height}" width="100%">
   <defs>
@@ -365,6 +484,11 @@ def generate_tech_stack() -> str:
       <stop offset="35%" stop-color="#a855f7"/>
       <stop offset="70%" stop-color="#00ff88"/>
       <stop offset="100%" stop-color="#ff0055"/>
+    </linearGradient>
+
+    <linearGradient id="geminiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f7ff"/>
+      <stop offset="100%" stop-color="#a855f7"/>
     </linearGradient>
 
     <filter id="techGlow" x="-20%" y="-20%" width="140%" height="140%">
@@ -415,14 +539,14 @@ def generate_tech_stack() -> str:
     </text>
     <circle cx="210" cy="-6" r="4" fill="#00ff88" filter="url(#techGlow)"/>
     <text x="0" y="20" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="11.5" font-weight="600" letter-spacing="1.5" text-anchor="middle">
-      SYSTEM DIAGNOSTICS // 32 ACTIVE ENGINES &amp; AI AGENT RIGS
+      SYSTEM DIAGNOSTICS // 26 CORE ENGINES &amp; AI AGENT RIGS
     </text>
   </g>
 
   <!-- Glowing Scanner Line under Title -->
   <line x1="80" y1="78" x2="860" y2="78" stroke="url(#techBorderGrad)" stroke-width="1.5" opacity="0.7"/>
 
-  <!-- Render All 4 Groups -->
+  <!-- Render All 3 Groups -->
   {"".join(rendered_groups)}
 </svg>'''
 
