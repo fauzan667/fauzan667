@@ -28,10 +28,10 @@
 </div>
 
 <!-- ========================================================================= -->
-<!-- 02 REALISTIC NEON VIPER CONTRIBUTION HARVESTER                            -->
+<!-- 02 CELESTIAL NEON DRAGON CONTRIBUTION HARVESTER                           -->
 <!-- ========================================================================= -->
 <div align="center">
-  <img src="assets/neon-viper.svg" width="100%" alt="Neon Viper Contribution Harvester" />
+  <img src="assets/neon-dragon.svg" width="100%" alt="Celestial Neon Dragon Contribution Harvester" />
 </div>
 
 <div align="center">
@@ -61,10 +61,10 @@
 </div>
 
 <!-- ========================================================================= -->
-<!-- 05 GITHUB TROPHIES & ACHIEVEMENTS                                         -->
+<!-- 05 GITHUB TROPHIES & ACHIEVEMENTS (100% Native SVG)                       -->
 <!-- ========================================================================= -->
 <div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=fauzan667&theme=tokyonight&no-frame=false&no-bg=false&margin-w=6&row=1&column=7" width="100%" alt="GitHub Trophies" />
+  <img src="assets/trophies.svg" width="100%" alt="GitHub Trophies &amp; Achievements" />
 </div>
 
 <div align="center">
@@ -75,5 +75,5 @@
 <!-- FOOTER                                                                    -->
 <!-- ========================================================================= -->
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00f7ff,50:a855f7,100:00ff88&height=120&section=footer&text=%E2%9A%A1%20Let's%20Build%20The%20Future%20Together!&fontSize=22&fontColor=ffffff&fontAlignY=65" width="100%" alt="Cyberpunk Waving Footer" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00f7ff,50:a855f7,100:00ff88&height=120&section=footer&text=Let's%20Build%20The%20Future%20Together!&fontSize=22&fontColor=ffffff&fontAlignY=65" width="100%" alt="Cyberpunk Waving Footer" />
 </div>
