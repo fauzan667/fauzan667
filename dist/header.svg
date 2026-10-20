@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 270" width="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 220" width="100%">
   <defs>
     <!-- Lighting Border Gradient -->
     <linearGradient id="headBorderNeon" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -17,7 +17,7 @@
     </filter>
 
     <filter id="deepCyanGlow" x="-30%" y="-50%" width="160%" height="200%">
-      <feGaussianBlur stdDeviation="9" result="blur1"/>
+      <feGaussianBlur stdDeviation="10" result="blur1"/>
       <feGaussianBlur stdDeviation="4" result="blur2"/>
       <feMerge>
         <feMergeNode in="blur1"/>
@@ -39,11 +39,11 @@
   </style>
 
   <!-- Card Background -->
-  <rect x="6" y="6" width="928" height="258" rx="18" fill="#060814" stroke="#1e293b" stroke-width="1.8"/>
-  <rect x="6" y="6" width="928" height="258" rx="18" fill="url(#cyberGridHead)"/>
+  <rect x="6" y="6" width="928" height="208" rx="18" fill="#060814" stroke="#1e293b" stroke-width="1.8"/>
+  <rect x="6" y="6" width="928" height="208" rx="18" fill="url(#cyberGridHead)"/>
 
   <!-- Animated Neon Lighting Border -->
-  <rect x="6" y="6" width="928" height="258" rx="18" fill="none" stroke="url(#headBorderNeon)" stroke-width="3.2" filter="url(#glowNeon)" stroke-dasharray="240 320" stroke-linecap="round">
+  <rect x="6" y="6" width="928" height="208" rx="18" fill="none" stroke="url(#headBorderNeon)" stroke-width="3.2" filter="url(#glowNeon)" stroke-dasharray="240 320" stroke-linecap="round">
     <animate attributeName="stroke-dashoffset" from="0" to="-1120" dur="5s" repeatCount="indefinite"/>
   </rect>
 
@@ -52,114 +52,86 @@
   <circle cx="18" cy="18" r="2.5" fill="#00f7ff"/>
   <path d="M 922,34 L 922,18 L 906,18" stroke="#a855f7" stroke-width="2.5" fill="none"/>
   <circle cx="922" cy="18" r="2.5" fill="#a855f7"/>
-  <path d="M 18,236 L 18,252 L 34,252" stroke="#00ff88" stroke-width="2.5" fill="none"/>
-  <circle cx="18" cy="252" r="2.5" fill="#00ff88"/>
-  <path d="M 922,236 L 922,252 L 906,252" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
-  <circle cx="922" cy="252" r="2.5" fill="#00f7ff"/>
+  <path d="M 18,186 L 18,202 L 34,202" stroke="#00ff88" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="202" r="2.5" fill="#00ff88"/>
+  <path d="M 922,186 L 922,202 L 906,202" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="202" r="2.5" fill="#00f7ff"/>
 
   <!-- SIDE EQUALIZERS (Holographic Audio Spectrum) -->
-  <rect x="48" y="112" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
+  <rect x="48" y="88" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="12;36;20;46;28;12" dur="1.6s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.6s" repeatCount="indefinite"/>
-        </rect><rect x="62" y="112" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.6s" repeatCount="indefinite"/>
+        </rect><rect x="62" y="88" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="26;14;42;18;48;26" dur="1.9s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.9s" repeatCount="indefinite"/>
-        </rect><rect x="76" y="112" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.9s" repeatCount="indefinite"/>
+        </rect><rect x="76" y="88" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="16;44;24;32;14;16" dur="1.4s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.4s" repeatCount="indefinite"/>
-        </rect><rect x="90" y="112" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.4s" repeatCount="indefinite"/>
+        </rect><rect x="90" y="88" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="38;20;48;28;16;38" dur="2.1s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="2.1s" repeatCount="indefinite"/>
-        </rect><rect x="104" y="112" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="2.1s" repeatCount="indefinite"/>
+        </rect><rect x="104" y="88" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="20;40;14;44;30;20" dur="1.7s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.7s" repeatCount="indefinite"/>
-        </rect><rect x="118" y="112" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.7s" repeatCount="indefinite"/>
+        </rect><rect x="118" y="88" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="30;16;38;22;42;30" dur="1.5s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.5s" repeatCount="indefinite"/>
-        </rect><rect x="132" y="112" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.5s" repeatCount="indefinite"/>
+        </rect><rect x="132" y="88" width="6" height="26" rx="3" fill="#00f7ff" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="14;34;20;48;24;14" dur="1.8s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.8s" repeatCount="indefinite"/>
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.8s" repeatCount="indefinite"/>
         </rect>
-  <rect x="800" y="112" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
+  <rect x="800" y="88" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="12;36;20;46;28;12" dur="1.6s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.6s" repeatCount="indefinite"/>
-        </rect><rect x="814" y="112" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.6s" repeatCount="indefinite"/>
+        </rect><rect x="814" y="88" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="26;14;42;18;48;26" dur="1.9s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.9s" repeatCount="indefinite"/>
-        </rect><rect x="828" y="112" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.9s" repeatCount="indefinite"/>
+        </rect><rect x="828" y="88" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="16;44;24;32;14;16" dur="1.4s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.4s" repeatCount="indefinite"/>
-        </rect><rect x="842" y="112" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.4s" repeatCount="indefinite"/>
+        </rect><rect x="842" y="88" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="38;20;48;28;16;38" dur="2.1s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="2.1s" repeatCount="indefinite"/>
-        </rect><rect x="856" y="112" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="2.1s" repeatCount="indefinite"/>
+        </rect><rect x="856" y="88" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="20;40;14;44;30;20" dur="1.7s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.7s" repeatCount="indefinite"/>
-        </rect><rect x="870" y="112" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.7s" repeatCount="indefinite"/>
+        </rect><rect x="870" y="88" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="30;16;38;22;42;30" dur="1.5s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.5s" repeatCount="indefinite"/>
-        </rect><rect x="884" y="112" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.5s" repeatCount="indefinite"/>
+        </rect><rect x="884" y="88" width="6" height="26" rx="3" fill="#a855f7" opacity="0.85" filter="url(#glowNeon)">
           <animate attributeName="height" values="14;34;20;48;24;14" dur="1.8s" repeatCount="indefinite"/>
-          <animate attributeName="y" values="106;92;102;88;100;106" dur="1.8s" repeatCount="indefinite"/>
+          <animate attributeName="y" values="82;68;78;64;76;82" dur="1.8s" repeatCount="indefinite"/>
         </rect>
 
-  <!-- Decorative Cyber Crosshairs -->
-  <g opacity="0.32">
-    <circle cx="110" cy="120" r="28" fill="none" stroke="#00f7ff" stroke-width="0.8" stroke-dasharray="3 3"/>
-    <line x1="110" y1="88" x2="110" y2="152" stroke="#00f7ff" stroke-width="0.8"/>
-    <line x1="78" y1="120" x2="142" y2="120" stroke="#00f7ff" stroke-width="0.8"/>
+  <!-- Decorative Cyber Crosshairs (Low Opacity) -->
+  <g opacity="0.25">
+    <circle cx="110" cy="95" r="26" fill="none" stroke="#00f7ff" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="110" y1="65" x2="110" y2="125" stroke="#00f7ff" stroke-width="0.8"/>
+    <line x1="80" y1="95" x2="140" y2="95" stroke="#00f7ff" stroke-width="0.8"/>
 
-    <circle cx="830" cy="120" r="28" fill="none" stroke="#a855f7" stroke-width="0.8" stroke-dasharray="3 3"/>
-    <line x1="830" y1="88" x2="830" y2="152" stroke="#a855f7" stroke-width="0.8"/>
-    <line x1="798" y1="120" x2="862" y2="120" stroke="#a855f7" stroke-width="0.8"/>
+    <circle cx="830" cy="95" r="26" fill="none" stroke="#a855f7" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="830" y1="65" x2="830" y2="125" stroke="#a855f7" stroke-width="0.8"/>
+    <line x1="800" y1="95" x2="860" y2="95" stroke="#a855f7" stroke-width="0.8"/>
   </g>
 
-  <!-- TOP IDENTITY PROTOCOL BADGE -->
-  <g transform="translate(470, 44)">
-    <text x="0" y="0" fill="#00f7ff" class="mono-font" font-size="11.5" font-weight="700" letter-spacing="4" text-anchor="middle">
-      ◈ CYBERSPACE ARCHITECT // IDENTITY PROTOCOL ◈
-    </text>
-  </g>
-
-  <!-- AESTHETIC GEOMETRIC CYBER WINGS (Flanking FAUZAN) -->
-  <!-- Left Wing -->
-  <g transform="translate(195, 108)">
-    <path d="M -45,-24 L -15,-24 L 0,0 L -15,24 L -45,24" stroke="url(#headBorderNeon)" stroke-width="2.2" fill="none" filter="url(#glowNeon)"/>
-    <line x1="-36" y1="-8" x2="-14" y2="-8" stroke="#00f7ff" stroke-width="1.5"/>
-    <line x1="-36" y1="8" x2="-14" y2="8" stroke="#a855f7" stroke-width="1.5"/>
-    <polygon points="-8,-4 0,0 -8,4" fill="#00f7ff"/>
-    <circle cx="-45" cy="-24" r="2.5" fill="#00f7ff"/>
-    <circle cx="-45" cy="24" r="2.5" fill="#a855f7"/>
-  </g>
-
-  <!-- Right Wing -->
-  <g transform="translate(745, 108)">
-    <path d="M 45,-24 L 15,-24 L 0,0 L 15,24 L 45,24" stroke="url(#headBorderNeon)" stroke-width="2.2" fill="none" filter="url(#glowNeon)"/>
-    <line x1="36" y1="-8" x2="14" y2="-8" stroke="#a855f7" stroke-width="1.5"/>
-    <line x1="36" y1="8" x2="14" y2="8" stroke="#00f7ff" stroke-width="1.5"/>
-    <polygon points="8,-4 0,0 8,4" fill="#a855f7"/>
-    <circle cx="45" cy="-24" r="2.5" fill="#a855f7"/>
-    <circle cx="45" cy="24" r="2.5" fill="#00f7ff"/>
-  </g>
-
-  <!-- CENTRAL SHOWPIECE: FAUZAN (NO PETIR, PURE AESTHETIC CYBER TYPOGRAPHY) -->
+  <!-- PURE AESTHETIC NAME: Fauzan (NO ICONS, NO PETIR, CLEAN NEON GLOW) -->
   <!-- Glowing Shadow Layer 1 (Electric Cyan Deep Glow) -->
-  <text x="470" y="122" fill="#00f7ff" class="title-font" font-size="64" letter-spacing="8" text-anchor="middle" filter="url(#deepCyanGlow)">
-    FAUZAN
+  <text x="470" y="88" fill="#00f7ff" class="title-font" font-size="64" letter-spacing="4" text-anchor="middle" filter="url(#deepCyanGlow)">
+    Fauzan
   </text>
   <!-- Glowing Shadow Layer 2 (Neon Purple Glitch Layer) -->
-  <text x="470" y="122" fill="#a855f7" class="title-font" font-size="64" letter-spacing="8" text-anchor="middle" filter="url(#glowNeon)" opacity="0.85">
-    FAUZAN
+  <text x="470" y="88" fill="#a855f7" class="title-font" font-size="64" letter-spacing="4" text-anchor="middle" filter="url(#glowNeon)" opacity="0.85">
+    Fauzan
     <animate attributeName="dx" values="0;2;-2;1;0" dur="3.5s" repeatCount="indefinite"/>
   </text>
   <!-- Foreground Crisp Text with Neon Stroke and Subtle Glitch Breathing -->
-  <text x="470" y="122" fill="#ffffff" stroke="#00f7ff" stroke-width="1.2" class="title-font" font-size="64" letter-spacing="8" text-anchor="middle">
-    FAUZAN
+  <text x="470" y="88" fill="#ffffff" stroke="#00f7ff" stroke-width="1.2" class="title-font" font-size="64" letter-spacing="4" text-anchor="middle">
+    Fauzan
     <animate attributeName="opacity" values="1;0.92;1;0.96;1;0.88;1" dur="2.8s" repeatCount="indefinite"/>
   </text>
 
   <!-- SUBTITLE ANIMASI TYPING ALA CYBERPUNK -->
-  <g transform="translate(470, 158)">
+  <g transform="translate(470, 122)">
     <text x="0" y="0" fill="#93c5fd" class="mono-font" font-size="16" font-weight="600" letter-spacing="1.2" text-anchor="middle">
       Full-Stack Web Developer • Software Engineer • Tech Enthusiast
       <tspan fill="#00f7ff" font-weight="900"> █<animate attributeName="opacity" values="1;0;1" dur="0.85s" repeatCount="indefinite"/></tspan>
@@ -167,33 +139,33 @@
   </g>
 
   <!-- Decorative Divider Under Subtitle -->
-  <line x1="220" y1="180" x2="720" y2="180" stroke="url(#headBorderNeon)" stroke-width="1.2" opacity="0.6"/>
-  <circle cx="470" cy="180" r="3" fill="#00ff88" filter="url(#glowNeon)"/>
+  <line x1="220" y1="142" x2="720" y2="142" stroke="url(#headBorderNeon)" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="470" cy="142" r="3" fill="#00ff88" filter="url(#glowNeon)"/>
 
-  <!-- BOTTOM CYBER STATUS CAPSULES (HUD Modules) -->
+  <!-- BOTTOM CYBER STATUS CAPSULES (Clean, No Emojis, No Petir) -->
   <!-- Capsule 1: FULL-STACK ARCHITECT -->
-  <rect x="42" y="202" width="202" height="36" rx="10" fill="#0b122b" stroke="#00f7ff" stroke-width="1.2" stroke-opacity="0.6"/>
-  <circle cx="58" cy="220" r="4" fill="#00f7ff" filter="url(#glowNeon)"/>
-  <text x="70" y="224" fill="#e0f2fe" class="mono-font" font-size="11" font-weight="700">💠 FULL-STACK ARCHITECT</text>
+  <rect x="42" y="160" width="202" height="34" rx="9" fill="#0b122b" stroke="#00f7ff" stroke-width="1.2" stroke-opacity="0.6"/>
+  <circle cx="58" cy="177" r="3.5" fill="#00f7ff" filter="url(#glowNeon)"/>
+  <text x="70" y="181" fill="#e0f2fe" class="mono-font" font-size="11" font-weight="700">FULL-STACK ARCHITECT</text>
 
   <!-- Capsule 2: PRODUCTION QUALITY -->
-  <rect x="258" y="202" width="202" height="36" rx="10" fill="#0b122b" stroke="#00ff88" stroke-width="1.2" stroke-opacity="0.6"/>
-  <circle cx="274" cy="220" r="4" fill="#00ff88" filter="url(#glowNeon)"/>
-  <text x="286" y="224" fill="#dcfce7" class="mono-font" font-size="11" font-weight="700">🛡️ PRODUCTION QUALITY</text>
+  <rect x="258" y="160" width="202" height="34" rx="9" fill="#0b122b" stroke="#00ff88" stroke-width="1.2" stroke-opacity="0.6"/>
+  <circle cx="274" cy="177" r="3.5" fill="#00ff88" filter="url(#glowNeon)"/>
+  <text x="286" y="181" fill="#dcfce7" class="mono-font" font-size="11" font-weight="700">PRODUCTION GRADE</text>
 
-  <!-- Capsule 3: AI-AUGMENTED FLOW -->
-  <rect x="474" y="202" width="208" height="36" rx="10" fill="#0b122b" stroke="#a855f7" stroke-width="1.2" stroke-opacity="0.6"/>
-  <circle cx="490" cy="220" r="4" fill="#a855f7" filter="url(#glowNeon)"/>
-  <text x="502" y="224" fill="#f3e8ff" class="mono-font" font-size="11" font-weight="700">🤖 AI-AUGMENTED FLOW</text>
+  <!-- Capsule 3: AI-AUGMENTED WORKFLOW -->
+  <rect x="474" y="160" width="208" height="34" rx="9" fill="#0b122b" stroke="#a855f7" stroke-width="1.2" stroke-opacity="0.6"/>
+  <circle cx="490" cy="177" r="3.5" fill="#a855f7" filter="url(#glowNeon)"/>
+  <text x="502" y="181" fill="#f3e8ff" class="mono-font" font-size="11" font-weight="700">AI-AUGMENTED FLOW</text>
 
   <!-- Capsule 4: READY TO DEPLOY -->
-  <rect x="696" y="202" width="202" height="36" rx="10" fill="#0b122b" stroke="#f43f5e" stroke-width="1.2" stroke-opacity="0.6"/>
-  <circle cx="712" cy="220" r="4" fill="#f43f5e" filter="url(#glowNeon)"/>
-  <text x="724" y="224" fill="#ffe4e6" class="mono-font" font-size="11" font-weight="700">🚀 READY TO DEPLOY</text>
+  <rect x="696" y="160" width="202" height="34" rx="9" fill="#0b122b" stroke="#f43f5e" stroke-width="1.2" stroke-opacity="0.6"/>
+  <circle cx="712" cy="177" r="3.5" fill="#f43f5e" filter="url(#glowNeon)"/>
+  <text x="724" y="181" fill="#ffe4e6" class="mono-font" font-size="11" font-weight="700">READY TO DEPLOY</text>
 
   <!-- Bottom Laser Sweep Line -->
-  <line x1="30" y1="250" x2="910" y2="250" stroke="#1e293b" stroke-width="1"/>
-  <circle cx="470" cy="250" r="3" fill="#00f7ff" filter="url(#glowNeon)">
+  <line x1="30" y1="202" x2="910" y2="202" stroke="#1e293b" stroke-width="1"/>
+  <circle cx="470" cy="202" r="3" fill="#00f7ff" filter="url(#glowNeon)">
     <animate attributeName="cx" values="60;880;60" dur="6s" repeatCount="indefinite"/>
   </circle>
 </svg>

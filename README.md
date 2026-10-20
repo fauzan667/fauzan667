@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="assets/header.svg" width="100%" alt="Fauzan - Cyberpunk Hologram Header" />
+  <img src="assets/cyber-header.svg?v=6" width="100%" alt="Fauzan - Developer Header" />
 </div>
 
 <p align="center">
-  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=20&duration=2800&pause=800&color=00F7FF&center=true&vCenter=true&width=680&lines=%F0%9F%9A%80+INITIALIZING+FAUZAN'S+CYBERPUNK+WORKSTATION...;%F0%9F%92%BB+Full-Stack+Architect+%E2%80%A2+Software+Engineer+%E2%80%A2+Innovator;%E2%9A%A1+Mastering+Modern+Web%2C+Cloud%2C+and+AI-Augmented+Dev;%F0%9F%94%A5+Available+for+High-Impact+Projects+%26+Freelance+Collabs" alt="Typing SVG" /></a>
+  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=20&duration=2800&pause=800&color=00F7FF&center=true&vCenter=true&width=680&lines=%F0%9F%9A%80+INITIALIZING+FAUZAN'S+CYBERPUNK+WORKSTATION...;%F0%9F%92%BB+Full-Stack+Architect+%E2%80%A2+Software+Engineer;%E2%9C%A8+Mastering+Modern+Web%2C+Cloud%2C+and+AI-Augmented+Dev;%F0%9F%94%A5+Available+for+High-Impact+Projects+%26+Freelance+Collabs" alt="Typing SVG" /></a>
 </p>
 
 <p align="center">
