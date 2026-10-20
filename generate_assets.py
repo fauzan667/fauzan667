@@ -461,7 +461,7 @@ def generate_neon_dragon() -> str:
         t = i / num_segments
         rx = 13.0 * (1 - t * 0.72)
         ry = 9.2 * (1 - t * 0.72)
-        delay = -i * 0.068
+        delay = -(11.5 - i * 0.068)
         fill = "url(#dragonScale1)" if i % 2 == 0 else "url(#dragonScale2)"
 
         # Dorsal Spines (Duri Punggung Naga Bercahaya)
@@ -497,7 +497,7 @@ def generate_neon_dragon() -> str:
     ]
     claws = []
     for seg_idx, side, label in claw_configs:
-        claw_delay = -seg_idx * 0.068
+        claw_delay = -(11.5 - seg_idx * 0.068)
         t = seg_idx / num_segments
         ry_cur = 9.2 * (1 - t * 0.72)
         y_elbow = side * (ry_cur + 8)

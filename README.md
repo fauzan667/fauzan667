@@ -31,7 +31,7 @@
 <!-- 02 CELESTIAL NEON DRAGON CONTRIBUTION HARVESTER                           -->
 <!-- ========================================================================= -->
 <div align="center">
-  <img src="assets/neon-dragon.svg" width="100%" alt="Celestial Neon Dragon Contribution Harvester" />
+  <img src="assets/neon-dragon.svg?v=2" width="100%" alt="Celestial Neon Dragon Contribution Harvester" />
 </div>
 
 <div align="center">
