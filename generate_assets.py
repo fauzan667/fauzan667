@@ -1434,8 +1434,6 @@ def main():
     # 5. Holographic RPG Skill Radar & Cyber Terminal
     validate_and_save(generate_cyber_terminal(), "cyber-terminal.svg")
 
-    # 6. Native Cyber Trophies & Achievements (Fixes Photo 2 bug)
-    validate_and_save(generate_trophies(), "trophies.svg")
 
     print("=" * 60)
     print("[SUCCESS] All Cyberpunk Neon SVG Assets successfully generated!")
