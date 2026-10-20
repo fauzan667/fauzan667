@@ -1,0 +1,511 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 563" width="100%">
+  <defs>
+    <linearGradient id="techBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f7ff"/>
+      <stop offset="35%" stop-color="#a855f7"/>
+      <stop offset="70%" stop-color="#00ff88"/>
+      <stop offset="100%" stop-color="#ff0055"/>
+    </linearGradient>
+
+    <filter id="techGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="techSoftGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <pattern id="techGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#a855f7" stroke-width="0.5" stroke-opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <!-- Card Background -->
+  <rect x="6" y="6" width="928" height="551" rx="18" fill="#060814" stroke="#1e293b" stroke-width="1.8"/>
+  <rect x="6" y="6" width="928" height="551" rx="18" fill="url(#techGrid)"/>
+
+  <!-- Animated Neon Lighting Border -->
+  <rect x="6" y="6" width="928" height="551" rx="18" fill="none" stroke="url(#techBorderGrad)" stroke-width="3.2" filter="url(#techGlow)" stroke-dasharray="260 340" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-1200" dur="5.5s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Corner Brackets -->
+  <path d="M 18,36 L 18,18 L 36,18" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="18" r="2.5" fill="#00f7ff"/>
+  <path d="M 922,36 L 922,18 L 904,18" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="18" r="2.5" fill="#a855f7"/>
+  <path d="M 18,527 L 18,545 L 36,545" stroke="#00ff88" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="545" r="2.5" fill="#00ff88"/>
+  <path d="M 922,527 L 922,545 L 904,545" stroke="#ff0055" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="545" r="2.5" fill="#ff0055"/>
+
+  <!-- Title Header Bar -->
+  <g transform="translate(470, 48)">
+    <circle cx="-210" cy="-6" r="4" fill="#00f7ff" filter="url(#techGlow)"/>
+    <text x="0" y="0" fill="#ffffff" font-family="'Segoe UI', -apple-system, sans-serif" font-size="22" font-weight="900" letter-spacing="2" text-anchor="middle">
+      • CORE TECH STACK &amp; ARSENAL •
+    </text>
+    <circle cx="210" cy="-6" r="4" fill="#00ff88" filter="url(#techGlow)"/>
+    <text x="0" y="20" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="11.5" font-weight="600" letter-spacing="1.5" text-anchor="middle">
+      SYSTEM DIAGNOSTICS // 32 ACTIVE ENGINES &amp; AI AGENT RIGS
+    </text>
+  </g>
+
+  <!-- Glowing Scanner Line under Title -->
+  <line x1="80" y1="78" x2="860" y2="78" stroke="url(#techBorderGrad)" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Render All 4 Groups -->
+  
+    <!-- Group 01 Header -->
+    <g transform="translate(32, 95)">
+      <!-- Circuit Connector Node -->
+      <circle cx="8" cy="14" r="5" fill="#00f7ff" filter="url(#techGlow)"/>
+      <line x1="16" y1="14" x2="40" y2="14" stroke="#00f7ff" stroke-width="1.8"/>
+      <!-- Group Badge -->
+      <rect x="42" y="0" width="34" height="26" rx="6" fill="#00f7ff" fill-opacity="0.15" stroke="#00f7ff" stroke-width="1.2"/>
+      <text x="59" y="18" fill="#00f7ff" font-family="monospace" font-size="13" font-weight="900" text-anchor="middle">01</text>
+      <!-- Title -->
+      <text x="88" y="18" fill="#f8fafc" font-family="'Segoe UI', -apple-system, sans-serif" font-size="16" font-weight="700" letter-spacing="0.5">Languages &amp; Core Technologies</text>
+      <!-- Tech Circuit Line Across -->
+      <line x1="390" y1="14" x2="870" y2="14" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <circle cx="870" cy="14" r="3" fill="#00f7ff" opacity="0.6"/>
+    </g>
+
+      <!-- Tool: PHP -->
+      <g transform="translate(36, 131)">
+        <!-- Glow Underneath -->
+        <ellipse cx="43.0" cy="28" rx="37.0" ry="5" fill="#777bb4" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="none" stroke="#777bb4" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#777bb4" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">PHP</text>
+      </g>
+      <!-- Tool: Laravel -->
+      <g transform="translate(132, 131)">
+        <!-- Glow Underneath -->
+        <ellipse cx="49.5" cy="28" rx="43.5" ry="5" fill="#ff2d20" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="none" stroke="#ff2d20" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#ff2d20" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Laravel</text>
+      </g>
+      <!-- Tool: HTML5 -->
+      <g transform="translate(241, 131)">
+        <!-- Glow Underneath -->
+        <ellipse cx="43.0" cy="28" rx="37.0" ry="5" fill="#e34f26" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="none" stroke="#e34f26" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#e34f26" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">HTML5</text>
+      </g>
+      <!-- Tool: CSS3 -->
+      <g transform="translate(337, 131)">
+        <!-- Glow Underneath -->
+        <ellipse cx="43.0" cy="28" rx="37.0" ry="5" fill="#1572b6" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="none" stroke="#1572b6" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#1572b6" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">CSS3</text>
+      </g>
+      <!-- Tool: JavaScript -->
+      <g transform="translate(433, 131)">
+        <!-- Glow Underneath -->
+        <ellipse cx="63.0" cy="28" rx="57.0" ry="5" fill="#f7df1e" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="none" stroke="#f7df1e" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#f7df1e" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">JavaScript</text>
+      </g>
+      <!-- Tool: TypeScript -->
+      <g transform="translate(569, 131)">
+        <!-- Glow Underneath -->
+        <ellipse cx="63.0" cy="28" rx="57.0" ry="5" fill="#3178c6" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="none" stroke="#3178c6" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#3178c6" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">TypeScript</text>
+      </g>
+      <!-- Tool: React -->
+      <g transform="translate(705, 131)">
+        <!-- Glow Underneath -->
+        <ellipse cx="43.0" cy="28" rx="37.0" ry="5" fill="#00f7ff" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="none" stroke="#00f7ff" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#00f7ff" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">React</text>
+      </g>
+      <!-- Tool: Next.js -->
+      <g transform="translate(801, 131)">
+        <!-- Glow Underneath -->
+        <ellipse cx="49.5" cy="28" rx="43.5" ry="5" fill="#ffffff" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#ffffff" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Next.js</text>
+      </g>
+      <!-- Tool: Node.js -->
+      <g transform="translate(36, 175)">
+        <!-- Glow Underneath -->
+        <ellipse cx="49.5" cy="28" rx="43.5" ry="5" fill="#22c55e" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="none" stroke="#22c55e" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#22c55e" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Node.js</text>
+      </g>
+      <!-- Tool: Python -->
+      <g transform="translate(145, 175)">
+        <!-- Glow Underneath -->
+        <ellipse cx="45.0" cy="28" rx="39.0" ry="5" fill="#38bdf8" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="none" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#38bdf8" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Python</text>
+      </g>
+    <!-- Group 02 Header -->
+    <g transform="translate(32, 229)">
+      <!-- Circuit Connector Node -->
+      <circle cx="8" cy="14" r="5" fill="#a855f7" filter="url(#techGlow)"/>
+      <line x1="16" y1="14" x2="40" y2="14" stroke="#a855f7" stroke-width="1.8"/>
+      <!-- Group Badge -->
+      <rect x="42" y="0" width="34" height="26" rx="6" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-width="1.2"/>
+      <text x="59" y="18" fill="#a855f7" font-family="monospace" font-size="13" font-weight="900" text-anchor="middle">02</text>
+      <!-- Title -->
+      <text x="88" y="18" fill="#f8fafc" font-family="'Segoe UI', -apple-system, sans-serif" font-size="16" font-weight="700" letter-spacing="0.5">Database &amp; Cloud Environment</text>
+      <!-- Tech Circuit Line Across -->
+      <line x1="390" y1="14" x2="870" y2="14" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <circle cx="870" cy="14" r="3" fill="#a855f7" opacity="0.6"/>
+    </g>
+
+      <!-- Tool: MySQL -->
+      <g transform="translate(36, 265)">
+        <!-- Glow Underneath -->
+        <ellipse cx="43.0" cy="28" rx="37.0" ry="5" fill="#00758f" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="none" stroke="#00758f" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#00758f" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">MySQL</text>
+      </g>
+      <!-- Tool: PostgreSQL -->
+      <g transform="translate(132, 265)">
+        <!-- Glow Underneath -->
+        <ellipse cx="63.0" cy="28" rx="57.0" ry="5" fill="#336791" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="none" stroke="#336791" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#336791" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">PostgreSQL</text>
+      </g>
+      <!-- Tool: MongoDB -->
+      <g transform="translate(268, 265)">
+        <!-- Glow Underneath -->
+        <ellipse cx="49.5" cy="28" rx="43.5" ry="5" fill="#00ed64" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="none" stroke="#00ed64" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#00ed64" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">MongoDB</text>
+      </g>
+      <!-- Tool: Git -->
+      <g transform="translate(377, 265)">
+        <!-- Glow Underneath -->
+        <ellipse cx="43.0" cy="28" rx="37.0" ry="5" fill="#f05032" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="none" stroke="#f05032" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#f05032" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Git</text>
+      </g>
+      <!-- Tool: GitHub -->
+      <g transform="translate(473, 265)">
+        <!-- Glow Underneath -->
+        <ellipse cx="45.0" cy="28" rx="39.0" ry="5" fill="#f0f6fc" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="none" stroke="#f0f6fc" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#f0f6fc" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">GitHub</text>
+      </g>
+      <!-- Tool: VS Code -->
+      <g transform="translate(573, 265)">
+        <!-- Glow Underneath -->
+        <ellipse cx="49.5" cy="28" rx="43.5" ry="5" fill="#007acc" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="none" stroke="#007acc" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#007acc" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">VS Code</text>
+      </g>
+      <!-- Tool: Figma -->
+      <g transform="translate(682, 265)">
+        <!-- Glow Underneath -->
+        <ellipse cx="43.0" cy="28" rx="37.0" ry="5" fill="#f24e1e" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="none" stroke="#f24e1e" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#f24e1e" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Figma</text>
+      </g>
+      <!-- Tool: Vercel -->
+      <g transform="translate(778, 265)">
+        <!-- Glow Underneath -->
+        <ellipse cx="45.0" cy="28" rx="39.0" ry="5" fill="#ffffff" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#ffffff" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Vercel</text>
+      </g>
+      <!-- Tool: Docker -->
+      <g transform="translate(36, 309)">
+        <!-- Glow Underneath -->
+        <ellipse cx="45.0" cy="28" rx="39.0" ry="5" fill="#2496ed" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="none" stroke="#2496ed" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#2496ed" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Docker</text>
+      </g>
+    <!-- Group 03 Header -->
+    <g transform="translate(32, 363)">
+      <!-- Circuit Connector Node -->
+      <circle cx="8" cy="14" r="5" fill="#00ff88" filter="url(#techGlow)"/>
+      <line x1="16" y1="14" x2="40" y2="14" stroke="#00ff88" stroke-width="1.8"/>
+      <!-- Group Badge -->
+      <rect x="42" y="0" width="34" height="26" rx="6" fill="#00ff88" fill-opacity="0.15" stroke="#00ff88" stroke-width="1.2"/>
+      <text x="59" y="18" fill="#00ff88" font-family="monospace" font-size="13" font-weight="900" text-anchor="middle">03</text>
+      <!-- Title -->
+      <text x="88" y="18" fill="#f8fafc" font-family="'Segoe UI', -apple-system, sans-serif" font-size="16" font-weight="700" letter-spacing="0.5">AI Coding Assistants &amp; Agents</text>
+      <!-- Tech Circuit Line Across -->
+      <line x1="390" y1="14" x2="870" y2="14" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <circle cx="870" cy="14" r="3" fill="#00ff88" opacity="0.6"/>
+    </g>
+
+      <!-- Tool: ChatGPT -->
+      <g transform="translate(36, 399)">
+        <!-- Glow Underneath -->
+        <ellipse cx="49.5" cy="28" rx="43.5" ry="5" fill="#00a67e" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="99" height="32" rx="8" fill="none" stroke="#00a67e" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#00a67e" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">ChatGPT</text>
+      </g>
+      <!-- Tool: Gemini -->
+      <g transform="translate(145, 399)">
+        <!-- Glow Underneath -->
+        <ellipse cx="45.0" cy="28" rx="39.0" ry="5" fill="#00f7ff" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="none" stroke="#00f7ff" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#00f7ff" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Gemini</text>
+      </g>
+      <!-- Tool: Claude -->
+      <g transform="translate(245, 399)">
+        <!-- Glow Underneath -->
+        <ellipse cx="45.0" cy="28" rx="39.0" ry="5" fill="#d97706" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="none" stroke="#d97706" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#d97706" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Claude</text>
+      </g>
+      <!-- Tool: Antigravity -->
+      <g transform="translate(345, 399)">
+        <!-- Glow Underneath -->
+        <ellipse cx="67.5" cy="28" rx="61.5" ry="5" fill="#a855f7" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="135" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="135" height="32" rx="8" fill="none" stroke="#a855f7" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#a855f7" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Antigravity</text>
+      </g>
+      <!-- Tool: GitHub Copilot -->
+      <g transform="translate(490, 399)">
+        <!-- Glow Underneath -->
+        <ellipse cx="81.0" cy="28" rx="75.0" ry="5" fill="#ffffff" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="162" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="162" height="32" rx="8" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#ffffff" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">GitHub Copilot</text>
+      </g>
+      <!-- Tool: Cursor -->
+      <g transform="translate(662, 399)">
+        <!-- Glow Underneath -->
+        <ellipse cx="45.0" cy="28" rx="39.0" ry="5" fill="#00f7ff" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="none" stroke="#00f7ff" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#00f7ff" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Cursor</text>
+      </g>
+      <!-- Tool: Perplexity -->
+      <g transform="translate(762, 399)">
+        <!-- Glow Underneath -->
+        <ellipse cx="63.0" cy="28" rx="57.0" ry="5" fill="#22d3ee" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="none" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#22d3ee" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Perplexity</text>
+      </g>
+    <!-- Group 04 Header -->
+    <g transform="translate(32, 453)">
+      <!-- Circuit Connector Node -->
+      <circle cx="8" cy="14" r="5" fill="#ff7000" filter="url(#techGlow)"/>
+      <line x1="16" y1="14" x2="40" y2="14" stroke="#ff7000" stroke-width="1.8"/>
+      <!-- Group Badge -->
+      <rect x="42" y="0" width="34" height="26" rx="6" fill="#ff7000" fill-opacity="0.15" stroke="#ff7000" stroke-width="1.2"/>
+      <text x="59" y="18" fill="#ff7000" font-family="monospace" font-size="13" font-weight="900" text-anchor="middle">04</text>
+      <!-- Title -->
+      <text x="88" y="18" fill="#f8fafc" font-family="'Segoe UI', -apple-system, sans-serif" font-size="16" font-weight="700" letter-spacing="0.5">LLM Platforms &amp; Open Models</text>
+      <!-- Tech Circuit Line Across -->
+      <line x1="390" y1="14" x2="870" y2="14" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <circle cx="870" cy="14" r="3" fill="#ff7000" opacity="0.6"/>
+    </g>
+
+      <!-- Tool: Ollama -->
+      <g transform="translate(36, 489)">
+        <!-- Glow Underneath -->
+        <ellipse cx="45.0" cy="28" rx="39.0" ry="5" fill="#ffffff" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="90" height="32" rx="8" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#ffffff" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Ollama</text>
+      </g>
+      <!-- Tool: Hugging Face -->
+      <g transform="translate(136, 489)">
+        <!-- Glow Underneath -->
+        <ellipse cx="72.0" cy="28" rx="66.0" ry="5" fill="#ffcc00" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="144" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="144" height="32" rx="8" fill="none" stroke="#ffcc00" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#ffcc00" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Hugging Face</text>
+      </g>
+      <!-- Tool: DeepSeek -->
+      <g transform="translate(290, 489)">
+        <!-- Glow Underneath -->
+        <ellipse cx="54.0" cy="28" rx="48.0" ry="5" fill="#1d4ed8" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="108" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="108" height="32" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#1d4ed8" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">DeepSeek</text>
+      </g>
+      <!-- Tool: Mistral AI -->
+      <g transform="translate(408, 489)">
+        <!-- Glow Underneath -->
+        <ellipse cx="63.0" cy="28" rx="57.0" ry="5" fill="#ff7000" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="none" stroke="#ff7000" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#ff7000" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Mistral AI</text>
+      </g>
+      <!-- Tool: Qwen -->
+      <g transform="translate(544, 489)">
+        <!-- Glow Underneath -->
+        <ellipse cx="43.0" cy="28" rx="37.0" ry="5" fill="#6366f1" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="86" height="32" rx="8" fill="none" stroke="#6366f1" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#6366f1" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Qwen</text>
+      </g>
+      <!-- Tool: Meta Llama -->
+      <g transform="translate(640, 489)">
+        <!-- Glow Underneath -->
+        <ellipse cx="63.0" cy="28" rx="57.0" ry="5" fill="#0284c7" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="126" height="32" rx="8" fill="none" stroke="#0284c7" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="#0284c7" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">Meta Llama</text>
+      </g>
+</svg>

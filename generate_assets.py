@@ -1,0 +1,1282 @@
+#!/usr/bin/env python3
+"""
+Cyberpunk Neon Asset Generator for fauzan667 GitHub Profile
+Generates high-tech, futuristic SVG cards with moving neon lighting borders,
+glowing cyber HUD elements, realistic viper animations, metrics ridges,
+and cyber terminals.
+"""
+
+import os
+import sys
+import math
+import xml.etree.ElementTree as ET
+
+# Ensure UTF-8 output even in Windows cmd/PowerShell
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
+DIST_DIR = os.path.join(BASE_DIR, "dist")
+
+os.makedirs(ASSETS_DIR, exist_ok=True)
+os.makedirs(DIST_DIR, exist_ok=True)
+
+
+def validate_and_save(svg_content: str, filename: str):
+    """Validates SVG XML syntax and saves to both assets/ and dist/."""
+    try:
+        ET.fromstring(svg_content)
+    except ET.ParseError as e:
+        print(f"[-] XML Parse Error in {filename}: {e}")
+        raise e
+
+    for out_dir in [ASSETS_DIR, DIST_DIR]:
+        path = os.path.join(out_dir, filename)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(svg_content)
+    print(f"[+] Successfully generated: {filename}")
+
+
+# ==============================================================================
+# 0. NEON DIVIDER BAR (neon-bar.svg)
+# ==============================================================================
+def generate_neon_bar() -> str:
+    return '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 24" width="100%" height="24">
+  <defs>
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#060814" stop-opacity="0"/>
+      <stop offset="15%" stop-color="#060814" stop-opacity="0.2"/>
+      <stop offset="35%" stop-color="#a855f7"/>
+      <stop offset="50%" stop-color="#00f7ff"/>
+      <stop offset="65%" stop-color="#00ff88"/>
+      <stop offset="85%" stop-color="#060814" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#060814" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="barGlow" x="-20%" y="-100%" width="140%" height="300%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Base Line -->
+  <line x1="20" y1="12" x2="920" y2="12" stroke="#1e293b" stroke-width="1.2" opacity="0.4"/>
+
+  <!-- Glowing Neon Laser Line -->
+  <line x1="40" y1="12" x2="900" y2="12" stroke="url(#barGrad)" stroke-width="2.5" filter="url(#barGlow)"/>
+
+  <!-- Left and Right Cyber Reticles -->
+  <circle cx="160" cy="12" r="3.5" fill="#a855f7" filter="url(#barGlow)"/>
+  <circle cx="780" cy="12" r="3.5" fill="#00ff88" filter="url(#barGlow)"/>
+
+  <!-- Center Diamond HUD Anchor -->
+  <polygon points="470,6 476,12 470,18 464,12" fill="#00f7ff" filter="url(#barGlow)"/>
+  <circle cx="470" cy="12" r="1.5" fill="#ffffff"/>
+
+  <!-- Traversal Energy Pulse -->
+  <circle cx="470" cy="12" r="4.5" fill="#ffffff" filter="url(#barGlow)">
+    <animate attributeName="cx" values="180;760;180" dur="4.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="4.2s" repeatCount="indefinite"/>
+  </circle>
+</svg>'''
+
+
+# ==============================================================================
+# 1. CYBERPUNK HOLOGRAM HEADER & STATUS BAR (header.svg)
+# ==============================================================================
+def generate_header() -> str:
+    # Generate Equalizer Bars for HUD Sides
+    eq_left = []
+    eq_right = []
+    bar_heights = [
+        ("10;32;18;42;24;10", "1.6s"),
+        ("24;12;38;16;44;24", "1.9s"),
+        ("14;40;22;30;12;14", "1.4s"),
+        ("35;18;45;26;15;35", "2.1s"),
+        ("18;36;12;40;28;18", "1.7s"),
+        ("28;15;34;20;38;28", "1.5s"),
+        ("12;30;18;44;22;12", "1.8s"),
+    ]
+    for idx, (vals, dur) in enumerate(bar_heights):
+        xl = 48 + idx * 14
+        xr = 800 + idx * 14
+        eq_left.append(f'''<rect x="{xl}" y="145" width="6" height="24" rx="3" fill="#00f7ff" opacity="0.8" filter="url(#glowNeon)">
+          <animate attributeName="height" values="{vals}" dur="{dur}" repeatCount="indefinite"/>
+          <animate attributeName="y" values="{145 - 6};{145 - 20};{145 - 10};{145 - 24};{145 - 12};{145 - 6}" dur="{dur}" repeatCount="indefinite"/>
+        </rect>''')
+        eq_right.append(f'''<rect x="{xr}" y="145" width="6" height="24" rx="3" fill="#a855f7" opacity="0.8" filter="url(#glowNeon)">
+          <animate attributeName="height" values="{vals}" dur="{dur}" repeatCount="indefinite"/>
+          <animate attributeName="y" values="{145 - 6};{145 - 20};{145 - 10};{145 - 24};{145 - 12};{145 - 6}" dur="{dur}" repeatCount="indefinite"/>
+        </rect>''')
+
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 330" width="100%">
+  <defs>
+    <!-- Lighting Border Gradient -->
+    <linearGradient id="headBorderNeon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f7ff"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#00ff88"/>
+    </linearGradient>
+
+    <!-- Text Glow Filter -->
+    <filter id="glowNeon" x="-20%" y="-30%" width="140%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="deepCyanGlow" x="-30%" y="-50%" width="160%" height="200%">
+      <feGaussianBlur stdDeviation="9" result="blur1"/>
+      <feGaussianBlur stdDeviation="4" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Subtle Cyber Grid Pattern -->
+    <pattern id="cyberGridHead" width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M 22 0 L 0 0 0 22" fill="none" stroke="#00f7ff" stroke-width="0.5" stroke-opacity="0.06"/>
+      <circle cx="22" cy="0" r="0.8" fill="#00f7ff" fill-opacity="0.2"/>
+    </pattern>
+  </defs>
+
+  <style>
+    .title-font {{ font-family: 'Segoe UI', -apple-system, Roboto, Ubuntu, sans-serif; font-weight: 900; }}
+    .mono-font {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', Courier, monospace; }}
+  </style>
+
+  <!-- Card Background -->
+  <rect x="6" y="6" width="928" height="318" rx="18" fill="#060814" stroke="#1e293b" stroke-width="1.8"/>
+  <rect x="6" y="6" width="928" height="318" rx="18" fill="url(#cyberGridHead)"/>
+
+  <!-- Animated Neon Lighting Border -->
+  <rect x="6" y="6" width="928" height="318" rx="18" fill="none" stroke="url(#headBorderNeon)" stroke-width="3.2" filter="url(#glowNeon)" stroke-dasharray="240 320" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-1120" dur="5s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Corner HUD Tech Brackets -->
+  <path d="M 18,36 L 18,18 L 36,18" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="18" r="2.5" fill="#00f7ff"/>
+  <path d="M 922,36 L 922,18 L 904,18" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="18" r="2.5" fill="#a855f7"/>
+  <path d="M 18,294 L 18,312 L 36,312" stroke="#00ff88" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="312" r="2.5" fill="#00ff88"/>
+  <path d="M 922,294 L 922,312 L 904,312" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="312" r="2.5" fill="#00f7ff"/>
+
+  <!-- TOP SYSTEM HUD BAR -->
+  <rect x="22" y="22" width="896" height="36" rx="8" fill="#0a0f24" stroke="#1e293b" stroke-width="1"/>
+  
+  <!-- System Indicator: SYSTEM: ONLINE -->
+  <g transform="translate(42, 40)">
+    <circle cx="0" cy="0" r="4.5" fill="#00ff88" filter="url(#glowNeon)">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="12" y="4" fill="#00ff88" class="mono-font" font-size="11" font-weight="700" letter-spacing="1">SYSTEM: ONLINE</text>
+  </g>
+
+  <!-- Separator 1 -->
+  <text x="200" y="44" fill="#334155" class="mono-font" font-size="12">│</text>
+
+  <!-- Status Indicator: FREELANCE STATUS: AVAILABLE -->
+  <g transform="translate(225, 40)">
+    <polygon points="0,-4 5,0 0,4 -5,0" fill="#00f7ff" filter="url(#glowNeon)"/>
+    <text x="12" y="4" fill="#00f7ff" class="mono-font" font-size="11" font-weight="700" letter-spacing="1">FREELANCE STATUS: AVAILABLE</text>
+  </g>
+
+  <!-- Separator 2 -->
+  <text x="500" y="44" fill="#334155" class="mono-font" font-size="12">│</text>
+
+  <!-- Location Indicator: LOCATION: INDONESIA -->
+  <g transform="translate(525, 40)">
+    <circle cx="0" cy="0" r="4" fill="#a855f7" filter="url(#glowNeon)"/>
+    <text x="12" y="4" fill="#c084fc" class="mono-font" font-size="11" font-weight="700" letter-spacing="1">LOCATION: INDONESIA [UTC+7]</text>
+  </g>
+
+  <!-- Top Right HUD Telemetry -->
+  <text x="898" y="44" fill="#64748b" class="mono-font" font-size="10" font-weight="600" text-anchor="end">SYS-RIG // CIPHER: AES-256 // 12ms</text>
+
+  <!-- SIDE EQUALIZERS (Holographic Audio / Wave Spectrum) -->
+  {"".join(eq_left)}
+  {"".join(eq_right)}
+
+  <!-- Decorative Cyber Crosshairs -->
+  <g opacity="0.35">
+    <circle cx="110" cy="155" r="28" fill="none" stroke="#00f7ff" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="110" y1="120" x2="110" y2="190" stroke="#00f7ff" stroke-width="0.8"/>
+    <line x1="75" y1="155" x2="145" y2="155" stroke="#00f7ff" stroke-width="0.8"/>
+
+    <circle cx="830" cy="155" r="28" fill="none" stroke="#a855f7" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="830" y1="120" x2="830" y2="190" stroke="#a855f7" stroke-width="0.8"/>
+    <line x1="795" y1="155" x2="865" y2="155" stroke="#a855f7" stroke-width="0.8"/>
+  </g>
+
+  <!-- CENTRAL CYBERPUNK SHOWPIECE: ⚡ Fauzan -->
+  <!-- Glowing Shadow Layer 1 (Electric Cyan Deep Glow) -->
+  <text x="470" y="152" fill="#00f7ff" class="title-font" font-size="62" letter-spacing="3" text-anchor="middle" filter="url(#deepCyanGlow)">
+    ⚡ Fauzan
+  </text>
+  <!-- Glowing Shadow Layer 2 (Neon Purple Glitch Layer) -->
+  <text x="470" y="152" fill="#a855f7" class="title-font" font-size="62" letter-spacing="3" text-anchor="middle" filter="url(#glowNeon)" opacity="0.85">
+    ⚡ Fauzan
+    <animate attributeName="dx" values="0;2;-2;1;0" dur="3.5s" repeatCount="indefinite"/>
+  </text>
+  <!-- Foreground Crisp Text with Neon Stroke and Subtle Glitch Breathing -->
+  <text x="470" y="152" fill="#ffffff" stroke="#00f7ff" stroke-width="1.2" class="title-font" font-size="62" letter-spacing="3" text-anchor="middle">
+    ⚡ Fauzan
+    <animate attributeName="opacity" values="1;0.92;1;0.96;1;0.88;1" dur="2.8s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- SUBTITLE ANIMASI TYPING ALA CYBERPUNK -->
+  <g transform="translate(470, 194)">
+    <text x="0" y="0" fill="#93c5fd" class="mono-font" font-size="16.5" font-weight="600" letter-spacing="1.2" text-anchor="middle">
+      Full-Stack Web Developer • Software Engineer • Tech Enthusiast
+      <tspan fill="#00f7ff" font-weight="900"> █<animate attributeName="opacity" values="1;0;1" dur="0.85s" repeatCount="indefinite"/></tspan>
+    </text>
+  </g>
+
+  <!-- Decorative Divider Under Subtitle -->
+  <line x1="220" y1="220" x2="720" y2="220" stroke="url(#headBorderNeon)" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="470" cy="220" r="3" fill="#00ff88" filter="url(#glowNeon)"/>
+
+  <!-- BOTTOM CYBER STATUS CAPSULES (HUD Modules) -->
+  <!-- Capsule 1: FULL-STACK -->
+  <rect x="42" y="246" width="202" height="38" rx="10" fill="#0b122b" stroke="#00f7ff" stroke-width="1.2" stroke-opacity="0.6"/>
+  <circle cx="58" cy="265" r="4" fill="#00f7ff" filter="url(#glowNeon)"/>
+  <text x="70" y="269" fill="#e0f2fe" class="mono-font" font-size="11" font-weight="700">⚡ FULL-STACK ARCHITECT</text>
+
+  <!-- Capsule 2: CODE QUALITY -->
+  <rect x="258" y="246" width="202" height="38" rx="10" fill="#0b122b" stroke="#00ff88" stroke-width="1.2" stroke-opacity="0.6"/>
+  <circle cx="274" cy="265" r="4" fill="#00ff88" filter="url(#glowNeon)"/>
+  <text x="286" y="269" fill="#dcfce7" class="mono-font" font-size="11" font-weight="700">🛡️ PRODUCTION QUALITY</text>
+
+  <!-- Capsule 3: AI WORKFLOW -->
+  <rect x="474" y="246" width="208" height="38" rx="10" fill="#0b122b" stroke="#a855f7" stroke-width="1.2" stroke-opacity="0.6"/>
+  <circle cx="490" cy="265" r="4" fill="#a855f7" filter="url(#glowNeon)"/>
+  <text x="502" y="269" fill="#f3e8ff" class="mono-font" font-size="11" font-weight="700">🤖 AI-AUGMENTED FLOW</text>
+
+  <!-- Capsule 4: READY TO DEPLOY -->
+  <rect x="696" y="246" width="202" height="38" rx="10" fill="#0b122b" stroke="#f43f5e" stroke-width="1.2" stroke-opacity="0.6"/>
+  <circle cx="712" cy="265" r="4" fill="#f43f5e" filter="url(#glowNeon)"/>
+  <text x="724" y="269" fill="#ffe4e6" class="mono-font" font-size="11" font-weight="700">🚀 READY TO DEPLOY</text>
+
+  <!-- Subtle Bottom Scanner Laser -->
+  <line x1="30" y1="302" x2="910" y2="302" stroke="#1e293b" stroke-width="1"/>
+  <circle cx="470" cy="302" r="3" fill="#00f7ff" filter="url(#glowNeon)">
+    <animate attributeName="cx" values="60;880;60" dur="6s" repeatCount="indefinite"/>
+  </circle>
+</svg>'''
+
+
+# ==============================================================================
+# 2. FLOATING CORE TECH STACK & ARSENAL (tech-stack.svg)
+# ==============================================================================
+def generate_tech_stack() -> str:
+    # 4 Groups definition
+    groups = [
+        {
+            "num": "01",
+            "title": "Languages &amp; Core Technologies",
+            "color": "#00f7ff",
+            "tools": [
+                ("PHP", "#777bb4"),
+                ("Laravel", "#ff2d20"),
+                ("HTML5", "#e34f26"),
+                ("CSS3", "#1572b6"),
+                ("JavaScript", "#f7df1e"),
+                ("TypeScript", "#3178c6"),
+                ("React", "#00f7ff"),
+                ("Next.js", "#ffffff"),
+                ("Node.js", "#22c55e"),
+                ("Python", "#38bdf8"),
+            ],
+        },
+        {
+            "num": "02",
+            "title": "Database &amp; Cloud Environment",
+            "color": "#a855f7",
+            "tools": [
+                ("MySQL", "#00758f"),
+                ("PostgreSQL", "#336791"),
+                ("MongoDB", "#00ed64"),
+                ("Git", "#f05032"),
+                ("GitHub", "#f0f6fc"),
+                ("VS Code", "#007acc"),
+                ("Figma", "#f24e1e"),
+                ("Vercel", "#ffffff"),
+                ("Docker", "#2496ed"),
+            ],
+        },
+        {
+            "num": "03",
+            "title": "AI Coding Assistants &amp; Agents",
+            "color": "#00ff88",
+            "tools": [
+                ("ChatGPT", "#00a67e"),
+                ("Gemini", "#00f7ff"),
+                ("Claude", "#d97706"),
+                ("Antigravity", "#a855f7"),
+                ("GitHub Copilot", "#ffffff"),
+                ("Cursor", "#00f7ff"),
+                ("Perplexity", "#22d3ee"),
+            ],
+        },
+        {
+            "num": "04",
+            "title": "LLM Platforms &amp; Open Models",
+            "color": "#ff7000",
+            "tools": [
+                ("Ollama", "#ffffff"),
+                ("Hugging Face", "#ffcc00"),
+                ("DeepSeek", "#1d4ed8"),
+                ("Mistral AI", "#ff7000"),
+                ("Qwen", "#6366f1"),
+                ("Meta Llama", "#0284c7"),
+            ],
+        },
+    ]
+
+    rendered_groups = []
+    current_y = 95
+
+    for g_idx, g in enumerate(groups):
+        g_color = g["color"]
+        # Group Header
+        header_svg = f'''
+    <!-- Group {g["num"]} Header -->
+    <g transform="translate(32, {current_y})">
+      <!-- Circuit Connector Node -->
+      <circle cx="8" cy="14" r="5" fill="{g_color}" filter="url(#techGlow)"/>
+      <line x1="16" y1="14" x2="40" y2="14" stroke="{g_color}" stroke-width="1.8"/>
+      <!-- Group Badge -->
+      <rect x="42" y="0" width="34" height="26" rx="6" fill="{g_color}" fill-opacity="0.15" stroke="{g_color}" stroke-width="1.2"/>
+      <text x="59" y="18" fill="{g_color}" font-family="monospace" font-size="13" font-weight="900" text-anchor="middle">{g["num"]}</text>
+      <!-- Title -->
+      <text x="88" y="18" fill="#f8fafc" font-family="'Segoe UI', -apple-system, sans-serif" font-size="16" font-weight="700" letter-spacing="0.5">{g["title"]}</text>
+      <!-- Tech Circuit Line Across -->
+      <line x1="390" y1="14" x2="870" y2="14" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <circle cx="870" cy="14" r="3" fill="{g_color}" opacity="0.6"/>
+    </g>'''
+
+        # Render Tool Badges
+        # Calculate grid layout for badges:
+        # width is ~870, so badges can be ~80-110px each
+        badge_y = current_y + 36
+        badge_items = []
+        badge_x = 36
+        row_height = 44
+
+        for tool_name, tool_color in g["tools"]:
+            badge_width = max(86, len(tool_name) * 9 + 36)
+            if badge_x + badge_width > 904:
+                # new row within group
+                badge_x = 36
+                badge_y += row_height
+
+            badge_items.append(f'''
+      <!-- Tool: {tool_name} -->
+      <g transform="translate({badge_x}, {badge_y})">
+        <!-- Glow Underneath -->
+        <ellipse cx="{badge_width/2:.1f}" cy="28" rx="{badge_width/2 - 6:.1f}" ry="5" fill="{tool_color}" opacity="0.25" filter="url(#techSoftGlow)"/>
+        <!-- Pill Box -->
+        <rect x="0" y="0" width="{badge_width}" height="32" rx="8" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+        <rect x="0" y="0" width="{badge_width}" height="32" rx="8" fill="none" stroke="{tool_color}" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Signature Indicator Dot / Diamond -->
+        <circle cx="14" cy="16" r="3.5" fill="{tool_color}" filter="url(#techSoftGlow)"/>
+        <!-- Label -->
+        <text x="26" y="20.5" fill="#e2e8f0" font-family="'JetBrains Mono', 'Segoe UI', monospace" font-size="11.5" font-weight="600">{tool_name}</text>
+      </g>''')
+            badge_x += badge_width + 10
+
+        rendered_groups.append(header_svg + "\n" + "".join(badge_items))
+        current_y = badge_y + 54
+
+    total_height = current_y + 20
+
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 {total_height}" width="100%">
+  <defs>
+    <linearGradient id="techBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f7ff"/>
+      <stop offset="35%" stop-color="#a855f7"/>
+      <stop offset="70%" stop-color="#00ff88"/>
+      <stop offset="100%" stop-color="#ff0055"/>
+    </linearGradient>
+
+    <filter id="techGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="techSoftGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <pattern id="techGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#a855f7" stroke-width="0.5" stroke-opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <!-- Card Background -->
+  <rect x="6" y="6" width="928" height="{total_height - 12}" rx="18" fill="#060814" stroke="#1e293b" stroke-width="1.8"/>
+  <rect x="6" y="6" width="928" height="{total_height - 12}" rx="18" fill="url(#techGrid)"/>
+
+  <!-- Animated Neon Lighting Border -->
+  <rect x="6" y="6" width="928" height="{total_height - 12}" rx="18" fill="none" stroke="url(#techBorderGrad)" stroke-width="3.2" filter="url(#techGlow)" stroke-dasharray="260 340" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-1200" dur="5.5s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Corner Brackets -->
+  <path d="M 18,36 L 18,18 L 36,18" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="18" r="2.5" fill="#00f7ff"/>
+  <path d="M 922,36 L 922,18 L 904,18" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="18" r="2.5" fill="#a855f7"/>
+  <path d="M 18,{total_height - 36} L 18,{total_height - 18} L 36,{total_height - 18}" stroke="#00ff88" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="{total_height - 18}" r="2.5" fill="#00ff88"/>
+  <path d="M 922,{total_height - 36} L 922,{total_height - 18} L 904,{total_height - 18}" stroke="#ff0055" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="{total_height - 18}" r="2.5" fill="#ff0055"/>
+
+  <!-- Title Header Bar -->
+  <g transform="translate(470, 48)">
+    <circle cx="-210" cy="-6" r="4" fill="#00f7ff" filter="url(#techGlow)"/>
+    <text x="0" y="0" fill="#ffffff" font-family="'Segoe UI', -apple-system, sans-serif" font-size="22" font-weight="900" letter-spacing="2" text-anchor="middle">
+      • CORE TECH STACK &amp; ARSENAL •
+    </text>
+    <circle cx="210" cy="-6" r="4" fill="#00ff88" filter="url(#techGlow)"/>
+    <text x="0" y="20" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="11.5" font-weight="600" letter-spacing="1.5" text-anchor="middle">
+      SYSTEM DIAGNOSTICS // 32 ACTIVE ENGINES &amp; AI AGENT RIGS
+    </text>
+  </g>
+
+  <!-- Glowing Scanner Line under Title -->
+  <line x1="80" y1="78" x2="860" y2="78" stroke="url(#techBorderGrad)" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Render All 4 Groups -->
+  {"".join(rendered_groups)}
+</svg>'''
+
+
+# ==============================================================================
+# 3. REALISTIC NEON VIPER CONTRIBUTION GAME (neon-viper.svg)
+# ==============================================================================
+def generate_neon_viper() -> str:
+    # 45 columns x 7 rows = 315 contribution cells
+    dots = []
+    # Deterministic simulation of an active GitHub developer
+    for col in range(45):
+        for row in range(7):
+            cx = 40 + col * 19.3
+            cy = 100 + row * 20.8
+            seed = (col * 11 + row * 17 + (col ^ row)) % 100
+            if seed > 86:
+                color, op = "#00ff88", "0.9"  # High Matrix Green
+            elif seed > 62:
+                color, op = "#00f7ff", "0.75"  # Medium Electric Cyan
+            elif seed > 40:
+                color, op = "#a855f7", "0.6"  # Moderate Neon Purple
+            elif seed > 22:
+                color, op = "#064e3b", "0.55"  # Dark Emerald
+            else:
+                color, op = "#10182b", "0.5"  # Minimal Base Cell
+            dots.append(
+                f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="4.2" fill="{color}" fill-opacity="{op}"/>'
+            )
+
+    # 36 Tapered Snake Segments moving along bezier curve
+    segments = []
+    num_segments = 36
+    for i in range(num_segments - 1, 0, -1):
+        t = i / num_segments
+        # Neck is widest (~11px rx), tapering to tail (~2.8px rx)
+        rx = 11.2 * (1 - t * 0.74)
+        ry = 8.4 * (1 - t * 0.74)
+        delay = -i * 0.065
+        fill = "url(#viperScale1)" if i % 2 == 0 else "url(#viperScale2)"
+        segments.append(f'''
+      <g>
+        <ellipse rx="{rx:.2f}" ry="{ry:.2f}" fill="{fill}" stroke="#022c22" stroke-width="0.8" filter="url(#viperSoftGlow)"/>
+        <!-- Dorsal Spine Luminescence -->
+        <ellipse rx="{rx * 0.45:.2f}" ry="{ry * 0.35:.2f}" fill="#d9f99d" fill-opacity="0.55"/>
+        <line x1="{-rx*0.4:.1f}" y1="0" x2="{rx*0.4:.1f}" y2="0" stroke="#00f7ff" stroke-width="0.8" opacity="0.8"/>
+        <animateMotion dur="11.5s" begin="{delay:.3f}s" repeatCount="indefinite" rotate="auto">
+          <mpath href="#viperPath"/>
+        </animateMotion>
+      </g>''')
+
+    # Realistic Viper Head with menacing eyes and flickering tongue
+    head_svg = '''
+    <g filter="url(#viperGlow)">
+      <!-- Flickering Forked Tongue -->
+      <path d="M 13,0 L 25,0 L 30,-4.5 M 25,0 L 30,4.5" stroke="#ff0055" stroke-width="2" stroke-linecap="round" fill="none">
+        <animate attributeName="opacity" values="1;0.1;1;1;0;0.9;1" dur="0.8s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- Viper Triangular Head Shape with Flared Temples -->
+      <path d="M -13,-8 C -5,-12 7,-8 15,0 C 7,8 -5,12 -13,8 C -17,5 -17,-5 -13,-8 Z" fill="url(#viperHeadGrad)" stroke="#00ff88" stroke-width="1.2"/>
+
+      <!-- Crown Armor Pattern -->
+      <path d="M -9,-3.5 L 2,0 L -9,3.5 Z" fill="#064e3b" opacity="0.8"/>
+      <path d="M -4,-6 L 4,0 L -4,6" stroke="#00f7ff" stroke-width="0.8" fill="none"/>
+
+      <!-- Menacing Glowing Yellow Viper Eyes with Slit Pupils -->
+      <ellipse cx="4" cy="-4.5" rx="2.6" ry="1.7" fill="#fde047" filter="url(#viperSoftGlow)"/>
+      <ellipse cx="4" cy="4.5" rx="2.6" ry="1.7" fill="#fde047" filter="url(#viperSoftGlow)"/>
+      <line x1="3" y1="-4.5" x2="5" y2="-4.5" stroke="#050505" stroke-width="1.1"/>
+      <line x1="3" y1="4.5" x2="5" y2="4.5" stroke="#050505" stroke-width="1.1"/>
+
+      <animateMotion dur="11.5s" begin="0s" repeatCount="indefinite" rotate="auto">
+        <mpath href="#viperPath"/>
+      </animateMotion>
+    </g>'''
+
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 370" width="100%">
+  <defs>
+    <!-- Lighting Border Gradient -->
+    <linearGradient id="viperBorderNeon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f7ff"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#00ff88"/>
+    </linearGradient>
+
+    <!-- Head & Scale Gradients -->
+    <linearGradient id="viperHeadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="60%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#00ff88"/>
+    </linearGradient>
+
+    <radialGradient id="viperScale1" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="60%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#064e3b"/>
+    </radialGradient>
+
+    <radialGradient id="viperScale2" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="60%" stop-color="#065f46"/>
+      <stop offset="100%" stop-color="#022c22"/>
+    </radialGradient>
+
+    <filter id="viperGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="viperSoftGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Dynamic Slithering Bezier Path -->
+    <path id="viperPath" d="M 65,130 C 150,75 210,225 310,135 C 410,50 470,230 575,145 C 670,60 740,220 815,125 C 850,75 735,65 615,185 C 495,255 360,75 220,195 C 125,245 35,175 65,130 Z"/>
+  </defs>
+
+  <style>
+    .title-font {{ font-family: 'Segoe UI', -apple-system, sans-serif; font-weight: 900; }}
+    .mono-font {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; }}
+  </style>
+
+  <!-- Card Background -->
+  <rect x="6" y="6" width="928" height="358" rx="18" fill="#060814" stroke="#1e293b" stroke-width="1.8"/>
+
+  <!-- Animated Neon Lighting Border -->
+  <rect x="6" y="6" width="928" height="358" rx="18" fill="none" stroke="url(#viperBorderNeon)" stroke-width="3.2" filter="url(#viperGlow)" stroke-dasharray="260 330" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-1180" dur="5.2s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Corner Brackets -->
+  <path d="M 18,36 L 18,18 L 36,18" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="18" r="2.5" fill="#00f7ff"/>
+  <path d="M 922,36 L 922,18 L 904,18" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="18" r="2.5" fill="#a855f7"/>
+  <path d="M 18,334 L 18,352 L 36,352" stroke="#00ff88" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="352" r="2.5" fill="#00ff88"/>
+  <path d="M 922,334 L 922,352 L 904,352" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="352" r="2.5" fill="#00f7ff"/>
+
+  <!-- Header Section -->
+  <g transform="translate(36, 42)">
+    <circle cx="4" cy="0" r="6" fill="#00ff88" filter="url(#viperGlow)"/>
+    <text x="22" y="5" fill="#ffffff" class="title-font" font-size="17" letter-spacing="1">🐍 NEON VIPER • CONTRIBUTION HARVESTER</text>
+    <text x="22" y="24" fill="#94a3b8" class="mono-font" font-size="11">@fauzan667 | REAL-TIME KINETIC VIPER ENGINE | KINETIC MATRIX</text>
+  </g>
+
+  <!-- Top Right Indicators -->
+  <g transform="translate(900, 42)">
+    <text x="0" y="3" fill="#00f7ff" class="mono-font" font-size="12" font-weight="700" text-anchor="end">LIVE ENGINE // 120 FPS</text>
+    <text x="0" y="23" fill="#00ff88" class="mono-font" font-size="13" font-weight="900" text-anchor="end">⚡ HARVESTING CORES</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="36" y1="76" x2="904" y2="76" stroke="#1e293b" stroke-width="1.2"/>
+
+  <!-- Contribution Grid (315 Glowing Cells) -->
+  {"".join(dots)}
+
+  <!-- Glowing Food / Energy Cores -->
+  <circle cx="310" cy="135" r="6" fill="#ff0055" filter="url(#viperGlow)">
+    <animate attributeName="r" values="4.5;7.5;4.5" dur="1.2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="575" cy="145" r="6" fill="#fde047" filter="url(#viperGlow)">
+    <animate attributeName="r" values="4.5;7.5;4.5" dur="1.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="815" cy="125" r="6" fill="#00f7ff" filter="url(#viperGlow)">
+    <animate attributeName="r" values="4.5;7.5;4.5" dur="1.3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="220" cy="195" r="6" fill="#a855f7" filter="url(#viperGlow)">
+    <animate attributeName="r" values="4.5;7.5;4.5" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Snake Body and Head Following Curved Path -->
+  {"".join(segments)}
+  {head_svg}
+
+  <!-- Bottom Energy Meter Panel -->
+  <g transform="translate(36, 276)">
+    <text x="0" y="0" fill="#00f7ff" class="mono-font" font-size="10.5" font-weight="700">CONTRIBUTION ENERGY METER (REAL-TIME HARVESTER)</text>
+    <text x="868" y="0" fill="#a855f7" class="mono-font" font-size="10.5" font-weight="700" text-anchor="end">XP TIERS: SCRIPT-KIDDIE ➔ ALGO-DEVOURER ➔ [MAX LEVEL: 9,842 XP]</text>
+    
+    <!-- Outer Track -->
+    <rect x="0" y="10" width="868" height="12" rx="6" fill="#0b1126" stroke="#1e293b" stroke-width="1.2"/>
+    <!-- Animated Glowing Energy Fill -->
+    <rect x="0" y="10" width="680" height="12" rx="6" fill="url(#viperBorderNeon)" filter="url(#viperSoftGlow)">
+      <animate attributeName="width" values="240;840;240" dur="7.5s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- Telemetry Subtext -->
+    <text x="0" y="38" fill="#64748b" class="mono-font" font-size="9.5">KINETIC FLUID: 100% // RADIAL DRIFT: NOMINAL // SENSOR ARRAY: SYNCHRONIZED</text>
+    <text x="868" y="38" fill="#00ff88" class="mono-font" font-size="9.5" font-weight="700" text-anchor="end">ALL NODES CONSUMED</text>
+  </g>
+</svg>'''
+
+
+# ==============================================================================
+# 4. DEVELOPER METRICS, STREAK & VELOCITY RIDGE (metrics-dashboard.svg)
+# ==============================================================================
+def generate_metrics_dashboard() -> str:
+    # 7 Days data for Velocity Ridge Area Chart
+    # Ridge coords relative to (330, 310) box
+    # Mon, Tue, Wed, Thu, Fri, Sat, Sun
+    # x: 340, 425, 510, 595, 680, 765, 850
+    # y: 440 (base), values go up to 340
+    points = [
+        (340, 415),
+        (425, 365),
+        (510, 385),
+        (595, 335),
+        (680, 360),
+        (765, 320),
+        (850, 350),
+    ]
+    path_d = f"M 340,440 L 340,415 C 380,365 400,365 425,365 C 460,365 480,385 510,385 C 550,385 570,335 595,335 C 635,335 655,360 680,360 C 720,360 740,320 765,320 C 805,320 825,350 850,350 L 850,440 Z"
+    stroke_d = f"M 340,415 C 380,365 400,365 425,365 C 460,365 480,385 510,385 C 550,385 570,335 595,335 C 635,335 655,360 680,360 C 720,360 740,320 765,320 C 805,320 825,350 850,350"
+
+    peak_dots = []
+    days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+    commits = ["24", "42", "35", "54", "40", "58", "46"]
+    for i, (px, py) in enumerate(points):
+        peak_dots.append(f'''
+      <circle cx="{px}" cy="{py}" r="4.5" fill="#00f7ff" filter="url(#metricGlow)"/>
+      <circle cx="{px}" cy="{py}" r="2" fill="#ffffff"/>
+      <text x="{px}" y="{py - 10}" fill="#38bdf8" font-family="monospace" font-size="10" font-weight="700" text-anchor="middle">{commits[i]}</text>
+      <text x="{px}" y="456" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">{days[i]}</text>''')
+
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 800" width="100%">
+  <defs>
+    <linearGradient id="metricBorderNeon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f7ff"/>
+      <stop offset="35%" stop-color="#a855f7"/>
+      <stop offset="70%" stop-color="#00ff88"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+
+    <linearGradient id="ridgeAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f7ff" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#a855f7" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#060814" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="metricGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="softGlowMetric" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .title-font {{ font-family: 'Segoe UI', -apple-system, sans-serif; font-weight: 900; }}
+    .mono-font {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; }}
+  </style>
+
+  <!-- Base Canvas -->
+  <rect x="6" y="6" width="928" height="788" rx="18" fill="#060814" stroke="#1e293b" stroke-width="1.8"/>
+
+  <!-- Animated Neon Lighting Border for Whole Dashboard -->
+  <rect x="6" y="6" width="928" height="788" rx="18" fill="none" stroke="url(#metricBorderNeon)" stroke-width="3.2" filter="url(#metricGlow)" stroke-dasharray="280 360" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-1280" dur="6s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Corner Brackets -->
+  <path d="M 18,36 L 18,18 L 36,18" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="18" r="2.5" fill="#00f7ff"/>
+  <path d="M 922,36 L 922,18 L 904,18" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="18" r="2.5" fill="#a855f7"/>
+  <path d="M 18,764 L 18,782 L 36,782" stroke="#00ff88" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="782" r="2.5" fill="#00ff88"/>
+  <path d="M 922,764 L 922,782 L 904,782" stroke="#f43f5e" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="782" r="2.5" fill="#f43f5e"/>
+
+  <!-- TOP BANNER: 📊 DEVELOPER METRICS & LIVE ACTIVITY -->
+  <g transform="translate(470, 44)">
+    <circle cx="-230" cy="-6" r="4" fill="#00f7ff" filter="url(#metricGlow)"/>
+    <text x="0" y="0" fill="#ffffff" class="title-font" font-size="21" letter-spacing="2" text-anchor="middle">
+      📊 DEVELOPER METRICS &amp; LIVE ACTIVITY
+    </text>
+    <circle cx="230" cy="-6" r="4" fill="#00ff88" filter="url(#metricGlow)"/>
+    <text x="0" y="20" fill="#94a3b8" class="mono-font" font-size="11" font-weight="600" letter-spacing="1.5" text-anchor="middle">
+      TELEMETRY // CODE FREQUENCY // REPO MATRIX // SYSTEM VITAL SIGNS
+    </text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- CARD 1: STREAK & CONTRIBUTIONS SHOWCASE (y: 84, height: 168) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(24, 84)">
+    <!-- Box background -->
+    <rect x="0" y="0" width="892" height="162" rx="14" fill="#0a0f24" stroke="#1e293b" stroke-width="1.4"/>
+    <!-- Lighting border for this card -->
+    <rect x="0" y="0" width="892" height="162" rx="14" fill="none" stroke="url(#metricBorderNeon)" stroke-width="2" filter="url(#softGlowMetric)" stroke-dasharray="160 260">
+      <animate attributeName="stroke-dashoffset" from="0" to="-840" dur="4.8s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- Left Column: Total Contributions -->
+    <g transform="translate(30, 24)">
+      <circle cx="10" cy="12" r="5" fill="#00ff88" filter="url(#metricGlow)"/>
+      <text x="24" y="16" fill="#94a3b8" class="mono-font" font-size="11.5" font-weight="700">TOTAL CONTRIBUTIONS</text>
+      <text x="0" y="68" fill="#00ff88" class="title-font" font-size="44" filter="url(#softGlowMetric)">2,840+</text>
+      <text x="0" y="94" fill="#64748b" class="mono-font" font-size="10.5">LIFETIME COMMITS &amp; PR EVENTS</text>
+      <rect x="0" y="106" width="200" height="8" rx="4" fill="#1e293b"/>
+      <rect x="0" y="106" width="168" height="8" rx="4" fill="#00ff88" filter="url(#softGlowMetric)"/>
+    </g>
+
+    <!-- Center Column: Rotating Neon Ring & Current Streak -->
+    <g transform="translate(446, 81)">
+      <!-- Outer Rotating Cyan Dashed Ring -->
+      <circle cx="0" cy="0" r="56" fill="none" stroke="#00f7ff" stroke-width="2.5" stroke-dasharray="8 6" filter="url(#metricGlow)">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="12s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Inner Reverse Rotating Purple Dashed Ring -->
+      <circle cx="0" cy="0" r="46" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-dasharray="5 5">
+        <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Core Background Circle -->
+      <circle cx="0" cy="0" r="38" fill="#060814" stroke="#00f7ff" stroke-width="1"/>
+
+      <!-- Flame Icon and Days Text -->
+      <text x="0" y="-8" fill="#ff7000" font-size="18" text-anchor="middle">🔥</text>
+      <text x="0" y="14" fill="#00f7ff" class="title-font" font-size="20" letter-spacing="1" text-anchor="middle">68</text>
+      <text x="0" y="27" fill="#93c5fd" class="mono-font" font-size="8.5" font-weight="700" text-anchor="middle">DAYS</text>
+
+      <!-- Label Below Ring -->
+      <text x="0" y="70" fill="#38bdf8" class="mono-font" font-size="11" font-weight="700" text-anchor="middle">CURRENT ACTIVE STREAK</text>
+    </g>
+
+    <!-- Right Column: Longest Streak & Consistency -->
+    <g transform="translate(640, 24)">
+      <circle cx="10" cy="12" r="5" fill="#a855f7" filter="url(#metricGlow)"/>
+      <text x="24" y="16" fill="#94a3b8" class="mono-font" font-size="11.5" font-weight="700">LONGEST STREAK RECORD</text>
+      <text x="0" y="68" fill="#c084fc" class="title-font" font-size="44" filter="url(#softGlowMetric)">142 DAYS</text>
+      <text x="0" y="94" fill="#64748b" class="mono-font" font-size="10.5">CONSISTENCY SCORE: 99.2% (S-TIER)</text>
+      <rect x="0" y="106" width="200" height="8" rx="4" fill="#1e293b"/>
+      <rect x="0" y="106" width="188" height="8" rx="4" fill="#a855f7" filter="url(#softGlowMetric)"/>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- CARD 2: WEEKLY VELOCITY RIDGE AREA CHART (y: 264, height: 242) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(24, 264)">
+    <rect x="0" y="0" width="892" height="236" rx="14" fill="#0a0f24" stroke="#1e293b" stroke-width="1.4"/>
+    <rect x="0" y="0" width="892" height="236" rx="14" fill="none" stroke="url(#metricBorderNeon)" stroke-width="2" filter="url(#softGlowMetric)" stroke-dasharray="180 280">
+      <animate attributeName="stroke-dashoffset" from="0" to="-920" dur="5s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- Card Header -->
+    <circle cx="28" cy="24" r="4.5" fill="#00f7ff" filter="url(#metricGlow)"/>
+    <text x="42" y="28" fill="#ffffff" class="title-font" font-size="14" letter-spacing="1">WEEKLY VELOCITY RIDGE // CODING ACTIVITY SPECTRUM</text>
+    <text x="864" y="28" fill="#00ff88" class="mono-font" font-size="11" font-weight="700" text-anchor="end">PEAK: 58 COMMITS / DAY</text>
+    <line x1="20" y1="44" x2="872" y2="44" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Left Telemetry Summary -->
+    <g transform="translate(24, 66)">
+      <text x="0" y="14" fill="#94a3b8" class="mono-font" font-size="11">AVERAGE VELOCITY:</text>
+      <text x="0" y="36" fill="#00f7ff" class="mono-font" font-size="16" font-weight="900">38.4 COMMITS / D</text>
+
+      <text x="0" y="66" fill="#94a3b8" class="mono-font" font-size="11">ACTIVE CODING TIME:</text>
+      <text x="0" y="88" fill="#00ff88" class="mono-font" font-size="16" font-weight="900">56.8 HRS / WEEK</text>
+
+      <text x="0" y="118" fill="#94a3b8" class="mono-font" font-size="11">EFFICIENCY FACTOR:</text>
+      <text x="0" y="140" fill="#c084fc" class="mono-font" font-size="16" font-weight="900">4.92x [OPTIMAL]</text>
+    </g>
+
+    <line x1="240" y1="56" x2="240" y2="216" stroke="#1e293b" stroke-width="1" stroke-dasharray="4 4"/>
+
+    <!-- Right: Area Chart Area (from x=260 to x=860, y from 60 to 200) -->
+    <!-- Grid Reference Lines -->
+    <line x1="260" y1="80" x2="860" y2="80" stroke="#1e293b" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="260" y1="120" x2="860" y2="120" stroke="#1e293b" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="260" y1="160" x2="860" y2="160" stroke="#1e293b" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="260" y1="200" x2="860" y2="200" stroke="#1e293b" stroke-width="1.2"/>
+
+    <!-- Chart Path and Area -->
+    <g transform="translate(-60, -230)">
+      <path d="{path_d}" fill="url(#ridgeAreaGrad)"/>
+      <path d="{stroke_d}" fill="none" stroke="#00f7ff" stroke-width="3" filter="url(#metricGlow)"/>
+      {"".join(peak_dots)}
+
+      <!-- Scanning Vertical Laser Line traversing horizontally -->
+      <line x1="340" y1="300" x2="340" y2="440" stroke="#00ff88" stroke-width="2" filter="url(#metricGlow)" opacity="0.8">
+        <animate attributeName="x1" values="340;850;340" dur="4.8s" repeatCount="indefinite"/>
+        <animate attributeName="x2" values="340;850;340" dur="4.8s" repeatCount="indefinite"/>
+      </line>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- CARD 3 & 4: SPLIT BOTTOM CARDS (y: 520, height: 250) -->
+  <!-- ========================================================================= -->
+  <!-- CARD 3 (Left): GITHUB CORE STATS -->
+  <g transform="translate(24, 520)">
+    <rect x="0" y="0" width="436" height="250" rx="14" fill="#0a0f24" stroke="#1e293b" stroke-width="1.4"/>
+    <rect x="0" y="0" width="436" height="250" rx="14" fill="none" stroke="url(#metricBorderNeon)" stroke-width="2" filter="url(#softGlowMetric)" stroke-dasharray="140 220">
+      <animate attributeName="stroke-dashoffset" from="0" to="-720" dur="4.5s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- Header -->
+    <circle cx="22" cy="24" r="4" fill="#00ff88" filter="url(#metricGlow)"/>
+    <text x="34" y="28" fill="#ffffff" class="title-font" font-size="13" letter-spacing="1">GITHUB CORE STATS</text>
+    <text x="414" y="28" fill="#64748b" class="mono-font" font-size="10" text-anchor="end">@fauzan667</text>
+    <line x1="16" y1="42" x2="420" y2="42" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Rotating Mini Radar Scanner on right -->
+    <g transform="translate(360, 115)">
+      <circle cx="0" cy="0" r="32" fill="none" stroke="#00f7ff" stroke-width="1" stroke-dasharray="3 3"/>
+      <circle cx="0" cy="0" r="20" fill="none" stroke="#a855f7" stroke-width="0.8"/>
+      <circle cx="0" cy="0" r="8" fill="none" stroke="#00ff88" stroke-width="0.8"/>
+      <line x1="-32" y1="0" x2="32" y2="0" stroke="#1e293b" stroke-width="0.8"/>
+      <line x1="0" y1="-32" x2="0" y2="32" stroke="#1e293b" stroke-width="0.8"/>
+      <!-- Sweeping Beam -->
+      <line x1="0" y1="0" x2="28" y2="-16" stroke="#00ff88" stroke-width="2" filter="url(#metricGlow)">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="3s" repeatCount="indefinite"/>
+      </line>
+    </g>
+
+    <!-- Stat Items -->
+    <g transform="translate(24, 68)">
+      <text x="0" y="0" fill="#94a3b8" class="mono-font" font-size="11.5">★ Total Stars Earned:</text>
+      <text x="180" y="0" fill="#fde047" class="mono-font" font-size="12" font-weight="700">120+</text>
+
+      <text x="0" y="32" fill="#94a3b8" class="mono-font" font-size="11.5">⚡ Total Commits:</text>
+      <text x="180" y="32" fill="#00ff88" class="mono-font" font-size="12" font-weight="700">2,840+</text>
+
+      <text x="0" y="64" fill="#94a3b8" class="mono-font" font-size="11.5">🔀 Pull Requests:</text>
+      <text x="180" y="64" fill="#00f7ff" class="mono-font" font-size="12" font-weight="700">85 Merged</text>
+
+      <text x="0" y="96" fill="#94a3b8" class="mono-font" font-size="11.5">✔ Issues Resolved:</text>
+      <text x="180" y="96" fill="#c084fc" class="mono-font" font-size="12" font-weight="700">46 Closed</text>
+
+      <text x="0" y="128" fill="#94a3b8" class="mono-font" font-size="11.5">📦 Contributed Repos:</text>
+      <text x="180" y="128" fill="#38bdf8" class="mono-font" font-size="12" font-weight="700">32 Repos</text>
+
+      <line x1="0" y1="145" x2="390" y2="145" stroke="#1e293b" stroke-width="1"/>
+      <text x="0" y="162" fill="#00ff88" class="mono-font" font-size="11" font-weight="900">DEVELOPER TIER: S+ ARCHITECT</text>
+    </g>
+  </g>
+
+  <!-- CARD 4 (Right): MOST USED LANGUAGES -->
+  <g transform="translate(480, 520)">
+    <rect x="0" y="0" width="436" height="250" rx="14" fill="#0a0f24" stroke="#1e293b" stroke-width="1.4"/>
+    <rect x="0" y="0" width="436" height="250" rx="14" fill="none" stroke="url(#metricBorderNeon)" stroke-width="2" filter="url(#softGlowMetric)" stroke-dasharray="140 220">
+      <animate attributeName="stroke-dashoffset" from="0" to="-720" dur="4.5s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- Header -->
+    <circle cx="22" cy="24" r="4" fill="#00f7ff" filter="url(#metricGlow)"/>
+    <text x="34" y="28" fill="#ffffff" class="title-font" font-size="13" letter-spacing="1">MOST USED LANGUAGES</text>
+    <text x="414" y="28" fill="#64748b" class="mono-font" font-size="10" text-anchor="end">CODE RADAR</text>
+    <line x1="16" y1="42" x2="420" y2="42" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Language Progress Bars -->
+    <g transform="translate(24, 66)">
+      <!-- PHP / Laravel -->
+      <text x="0" y="0" fill="#e2e8f0" class="mono-font" font-size="11" font-weight="600">PHP / Laravel</text>
+      <text x="388" y="0" fill="#00f7ff" class="mono-font" font-size="11" font-weight="700" text-anchor="end">38%</text>
+      <rect x="0" y="8" width="388" height="7" rx="3.5" fill="#1e293b"/>
+      <rect x="0" y="8" width="147" height="7" rx="3.5" fill="#00f7ff" filter="url(#softGlowMetric)"/>
+
+      <!-- JavaScript / TypeScript -->
+      <text x="0" y="32" fill="#e2e8f0" class="mono-font" font-size="11" font-weight="600">JavaScript / TypeScript</text>
+      <text x="388" y="32" fill="#a855f7" class="mono-font" font-size="11" font-weight="700" text-anchor="end">27%</text>
+      <rect x="0" y="40" width="388" height="7" rx="3.5" fill="#1e293b"/>
+      <rect x="0" y="40" width="105" height="7" rx="3.5" fill="#a855f7" filter="url(#softGlowMetric)"/>
+
+      <!-- Python -->
+      <text x="0" y="64" fill="#e2e8f0" class="mono-font" font-size="11" font-weight="600">Python</text>
+      <text x="388" y="64" fill="#00ff88" class="mono-font" font-size="11" font-weight="700" text-anchor="end">18%</text>
+      <rect x="0" y="72" width="388" height="7" rx="3.5" fill="#1e293b"/>
+      <rect x="0" y="72" width="70" height="7" rx="3.5" fill="#00ff88" filter="url(#softGlowMetric)"/>
+
+      <!-- HTML5 & CSS3 -->
+      <text x="0" y="96" fill="#e2e8f0" class="mono-font" font-size="11" font-weight="600">HTML5 &amp; CSS3</text>
+      <text x="388" y="96" fill="#ff7000" class="mono-font" font-size="11" font-weight="700" text-anchor="end">11%</text>
+      <rect x="0" y="104" width="388" height="7" rx="3.5" fill="#1e293b"/>
+      <rect x="0" y="104" width="43" height="7" rx="3.5" fill="#ff7000" filter="url(#softGlowMetric)"/>
+
+      <!-- SQL & Others -->
+      <text x="0" y="128" fill="#e2e8f0" class="mono-font" font-size="11" font-weight="600">SQL &amp; Others</text>
+      <text x="388" y="128" fill="#f43f5e" class="mono-font" font-size="11" font-weight="700" text-anchor="end">6%</text>
+      <rect x="0" y="136" width="388" height="7" rx="3.5" fill="#1e293b"/>
+      <rect x="0" y="136" width="23" height="7" rx="3.5" fill="#f43f5e" filter="url(#softGlowMetric)"/>
+
+      <line x1="0" y1="152" x2="388" y2="152" stroke="#1e293b" stroke-width="1"/>
+      <text x="194" y="167" fill="#64748b" class="mono-font" font-size="10" text-anchor="middle">SYNTAX MATRIX // 100% COMPILED</text>
+    </g>
+  </g>
+</svg>'''
+
+
+# ==============================================================================
+# 5. HOLOGRAPHIC RPG SKILL RADAR & SYSTEM TERMINAL (cyber-terminal.svg)
+# ==============================================================================
+def generate_cyber_terminal() -> str:
+    # 5 radar points for RPG Skill:
+    # Center at (105, 140), max radius 65
+    # Axes:
+    # 1. Frontend (angle -90 deg): r=59 -> (105, 81)
+    # 2. Backend (angle -18 deg): r=62 -> (105 + 59, 140 - 19) = (164, 121)
+    # 3. Database (angle 54 deg): r=57 -> (105 + 33, 140 + 46) = (138, 186)
+    # 4. UI/UX (angle 126 deg): r=60 -> (105 - 35, 140 + 48) = (70, 188)
+    # 5. AI-Augment (angle 198 deg): r=63 -> (105 - 60, 140 - 19) = (45, 121)
+    radar_poly = "105,81 164,121 138,186 70,188 45,121"
+
+    # Hex/polygon background grid layers (r=65, 45, 25)
+    def calc_poly(r):
+        pts = []
+        for i in range(5):
+            angle = -math.pi / 2 + i * (2 * math.pi / 5)
+            x = 105 + r * math.cos(angle)
+            y = 140 + r * math.sin(angle)
+            pts.append(f"{x:.1f},{y:.1f}")
+        return " ".join(pts)
+
+    poly_outer = calc_poly(65)
+    poly_mid = calc_poly(45)
+    poly_inner = calc_poly(25)
+
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 450" width="100%">
+  <defs>
+    <linearGradient id="termBorderNeon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f7ff"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#00ff88"/>
+    </linearGradient>
+
+    <linearGradient id="radarFillGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f7ff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <filter id="termGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="termSoftGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .title-font {{ font-family: 'Segoe UI', -apple-system, sans-serif; font-weight: 900; }}
+    .mono-font {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+  </style>
+
+  <!-- Window Container -->
+  <rect x="6" y="6" width="928" height="438" rx="18" fill="#060814" stroke="#1e293b" stroke-width="1.8"/>
+
+  <!-- Animated Neon Lighting Border -->
+  <rect x="6" y="6" width="928" height="438" rx="18" fill="none" stroke="url(#termBorderNeon)" stroke-width="3.2" filter="url(#termGlow)" stroke-dasharray="260 340" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-1200" dur="5.5s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Corner Brackets -->
+  <path d="M 18,36 L 18,18 L 36,18" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="18" r="2.5" fill="#00f7ff"/>
+  <path d="M 922,36 L 922,18 L 904,18" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="18" r="2.5" fill="#a855f7"/>
+  <path d="M 18,414 L 18,432 L 36,432" stroke="#00ff88" stroke-width="2.5" fill="none"/>
+  <circle cx="18" cy="432" r="2.5" fill="#00ff88"/>
+  <path d="M 922,414 L 922,432 L 904,432" stroke="#00f7ff" stroke-width="2.5" fill="none"/>
+  <circle cx="922" cy="432" r="2.5" fill="#00f7ff"/>
+
+  <!-- Terminal Window Header -->
+  <rect x="20" y="20" width="900" height="36" rx="8" fill="#0a0f24" stroke="#1e293b" stroke-width="1"/>
+  <!-- Mac/Unix LED Action Buttons -->
+  <circle cx="42" cy="38" r="5" fill="#ff5555" filter="url(#termSoftGlow)"/>
+  <circle cx="60" cy="38" r="5" fill="#ffb86c" filter="url(#termSoftGlow)"/>
+  <circle cx="78" cy="38" r="5" fill="#50fa7b" filter="url(#termSoftGlow)"/>
+
+  <!-- Window Title -->
+  <text x="470" y="42" fill="#00f7ff" class="mono-font" font-size="12" font-weight="700" letter-spacing="1" text-anchor="middle">
+    fauzan@cyber-rig: ~ (zsh) // HYPRLAND NEON HUD
+  </text>
+  <!-- Window Rig Spec -->
+  <text x="900" y="42" fill="#64748b" class="mono-font" font-size="10" text-anchor="end">SEC: LEVEL-5 // 8ms</text>
+
+  <!-- Vertical Divider Between Panels -->
+  <line x1="460" y1="68" x2="460" y2="424" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+  <!-- ========================================================================= -->
+  <!-- LEFT PANEL: DEVELOPER RPG SKILL RADAR & ATTRIBUTE BARS (x: 20 to 450) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(30, 72)">
+    <circle cx="10" cy="12" r="4.5" fill="#00ff88" filter="url(#termGlow)"/>
+    <text x="24" y="16" fill="#ffffff" class="title-font" font-size="14" letter-spacing="1">DEVELOPER RPG ATTRIBUTES</text>
+    <text x="410" y="16" fill="#a855f7" class="mono-font" font-size="10.5" font-weight="700" text-anchor="end">[LVL.99 ARCHITECT]</text>
+    <line x1="0" y1="28" x2="410" y2="28" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Polygonal Skill Radar Diagram -->
+    <g transform="translate(0, 10)">
+      <!-- Background Polygon Grids -->
+      <polygon points="{poly_outer}" fill="none" stroke="#1e293b" stroke-width="1"/>
+      <polygon points="{poly_mid}" fill="none" stroke="#1e293b" stroke-width="0.8"/>
+      <polygon points="{poly_inner}" fill="none" stroke="#1e293b" stroke-width="0.8"/>
+
+      <!-- 5 Axis Lines -->
+      <line x1="105" y1="140" x2="105" y2="75" stroke="#1e293b" stroke-width="0.8"/>
+      <line x1="105" y1="140" x2="167" y2="120" stroke="#1e293b" stroke-width="0.8"/>
+      <line x1="105" y1="140" x2="143" y2="193" stroke="#1e293b" stroke-width="0.8"/>
+      <line x1="105" y1="140" x2="67" y2="193" stroke="#1e293b" stroke-width="0.8"/>
+      <line x1="105" y1="140" x2="43" y2="120" stroke="#1e293b" stroke-width="0.8"/>
+
+      <!-- Filled Skill Radar Shape -->
+      <polygon points="{radar_poly}" fill="url(#radarFillGrad)" stroke="#00f7ff" stroke-width="2" filter="url(#termSoftGlow)"/>
+      <circle cx="105" cy="140" r="3" fill="#ffffff" filter="url(#termSoftGlow)"/>
+
+      <!-- Radar Axis Labels -->
+      <text x="105" y="68" fill="#00f7ff" class="mono-font" font-size="9" font-weight="700" text-anchor="middle">FRONTEND</text>
+      <text x="178" y="122" fill="#a855f7" class="mono-font" font-size="9" font-weight="700">BACKEND</text>
+      <text x="150" y="206" fill="#00ff88" class="mono-font" font-size="9" font-weight="700">DATABASE</text>
+      <text x="60" y="206" fill="#ff7000" class="mono-font" font-size="9" font-weight="700" text-anchor="end">UI/UX</text>
+      <text x="32" y="122" fill="#38bdf8" class="mono-font" font-size="9" font-weight="700" text-anchor="end">AI-CODING</text>
+    </g>
+
+    <!-- Attribute Progress Bars on right side of radar -->
+    <g transform="translate(210, 48)">
+      <!-- Frontend -->
+      <text x="0" y="0" fill="#94a3b8" class="mono-font" font-size="10" font-weight="600">Frontend Architecture</text>
+      <text x="195" y="0" fill="#00f7ff" class="mono-font" font-size="10" font-weight="700" text-anchor="end">92%</text>
+      <rect x="0" y="6" width="195" height="5" rx="2.5" fill="#1e293b"/>
+      <rect x="0" y="6" width="179" height="5" rx="2.5" fill="#00f7ff" filter="url(#termSoftGlow)"/>
+
+      <!-- Backend -->
+      <text x="0" y="26" fill="#94a3b8" class="mono-font" font-size="10" font-weight="600">Backend &amp; REST APIs</text>
+      <text x="195" y="26" fill="#a855f7" class="mono-font" font-size="10" font-weight="700" text-anchor="end">96%</text>
+      <rect x="0" y="32" width="195" height="5" rx="2.5" fill="#1e293b"/>
+      <rect x="0" y="32" width="187" height="5" rx="2.5" fill="#a855f7" filter="url(#termSoftGlow)"/>
+
+      <!-- Database -->
+      <text x="0" y="52" fill="#94a3b8" class="mono-font" font-size="10" font-weight="600">Database Optimization</text>
+      <text x="195" y="52" fill="#00ff88" class="mono-font" font-size="10" font-weight="700" text-anchor="end">88%</text>
+      <rect x="0" y="58" width="195" height="5" rx="2.5" fill="#1e293b"/>
+      <rect x="0" y="58" width="171" height="5" rx="2.5" fill="#00ff88" filter="url(#termSoftGlow)"/>
+
+      <!-- UI/UX -->
+      <text x="0" y="78" fill="#94a3b8" class="mono-font" font-size="10" font-weight="600">UI/UX &amp; Neon Styling</text>
+      <text x="195" y="78" fill="#ff7000" class="mono-font" font-size="10" font-weight="700" text-anchor="end">94%</text>
+      <rect x="0" y="84" width="195" height="5" rx="2.5" fill="#1e293b"/>
+      <rect x="0" y="84" width="183" height="5" rx="2.5" fill="#ff7000" filter="url(#termSoftGlow)"/>
+
+      <!-- AI-Augment -->
+      <text x="0" y="104" fill="#94a3b8" class="mono-font" font-size="10" font-weight="600">AI-Augmented Coding</text>
+      <text x="195" y="104" fill="#38bdf8" class="mono-font" font-size="10" font-weight="700" text-anchor="end">98%</text>
+      <rect x="0" y="110" width="195" height="5" rx="2.5" fill="#1e293b"/>
+      <rect x="0" y="110" width="191" height="5" rx="2.5" fill="#38bdf8" filter="url(#termSoftGlow)"/>
+    </g>
+
+    <!-- Bottom Quote Panel -->
+    <rect x="0" y="258" width="410" height="74" rx="8" fill="#0a0f24" stroke="#1e293b" stroke-width="1"/>
+    <text x="14" y="280" fill="#00f7ff" class="mono-font" font-size="10.5" font-weight="700">CYBER WARLOCK PHILOSOPHY:</text>
+    <text x="14" y="299" fill="#93c5fd" class="mono-font" font-size="10">"Code is not just logic; it is electric art carved</text>
+    <text x="14" y="316" fill="#93c5fd" class="mono-font" font-size="10">into silicon, running at the speed of thought."</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT PANEL: INTERACTIVE CYBER TERMINAL WINDOW (neofetch) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(485, 72)">
+    <!-- Terminal Command Line -->
+    <text x="0" y="16" fill="#00ff88" class="mono-font" font-size="12" font-weight="700">
+      fauzan@cyber-rig<tspan fill="#ffffff">:</tspan><tspan fill="#00f7ff">~</tspan><tspan fill="#ffffff">$ neofetch --cyber-spec</tspan>
+    </text>
+    <line x1="0" y1="28" x2="430" y2="28" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Left ASCII Cyber Emblem -->
+    <g transform="translate(0, 48)">
+      <text x="0" y="16" fill="#00f7ff" class="mono-font" font-size="11" font-weight="900" filter="url(#termSoftGlow)">███████╗</text>
+      <text x="0" y="32" fill="#00f7ff" class="mono-font" font-size="11" font-weight="900" filter="url(#termSoftGlow)">██╔════╝</text>
+      <text x="0" y="48" fill="#a855f7" class="mono-font" font-size="11" font-weight="900" filter="url(#termSoftGlow)">█████╗</text>
+      <text x="0" y="64" fill="#a855f7" class="mono-font" font-size="11" font-weight="900" filter="url(#termSoftGlow)">██╔══╝</text>
+      <text x="0" y="80" fill="#00ff88" class="mono-font" font-size="11" font-weight="900" filter="url(#termSoftGlow)">██║</text>
+      <text x="0" y="96" fill="#00ff88" class="mono-font" font-size="11" font-weight="900" filter="url(#termSoftGlow)">╚═╝</text>
+
+      <text x="0" y="122" fill="#64748b" class="mono-font" font-size="9">RIG-667</text>
+      <text x="0" y="136" fill="#00f7ff" class="mono-font" font-size="9" font-weight="700">ONLINE</text>
+    </g>
+
+    <!-- Neofetch Specs List -->
+    <g transform="translate(95, 46)">
+      <!-- Header inside neofetch -->
+      <text x="0" y="14" fill="#00f7ff" class="mono-font" font-size="12" font-weight="900">fauzan</text>
+      <text x="50" y="14" fill="#94a3b8" class="mono-font" font-size="12">@</text>
+      <text x="60" y="14" fill="#a855f7" class="mono-font" font-size="12" font-weight="900">cyber-rig</text>
+      <line x1="0" y1="20" x2="310" y2="20" stroke="#334155" stroke-width="1"/>
+
+      <!-- Specs entries -->
+      <text x="0" y="38" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">OS:</text>
+      <text x="75" y="38" fill="#e2e8f0" class="mono-font" font-size="10.5">Arch Linux / CyberOS x86_64</text>
+
+      <text x="0" y="56" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">HOST:</text>
+      <text x="75" y="56" fill="#e2e8f0" class="mono-font" font-size="10.5">Neural Quantum Rig 9000</text>
+
+      <text x="0" y="74" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">KERNEL:</text>
+      <text x="75" y="74" fill="#e2e8f0" class="mono-font" font-size="10.5">6.11.2-cyber-hardened</text>
+
+      <text x="0" y="92" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">UPTIME:</text>
+      <text x="75" y="92" fill="#e2e8f0" class="mono-font" font-size="10.5">999 Days, 42 Mins (Perpetual)</text>
+
+      <text x="0" y="110" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">SHELL:</text>
+      <text x="75" y="110" fill="#e2e8f0" class="mono-font" font-size="10.5">zsh 5.9 (pure-cyber)</text>
+
+      <text x="0" y="128" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">EDITOR:</text>
+      <text x="75" y="128" fill="#e2e8f0" class="mono-font" font-size="10.5">VS Code / Cursor / Neovim</text>
+
+      <text x="0" y="146" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">WM/DE:</text>
+      <text x="75" y="146" fill="#e2e8f0" class="mono-font" font-size="10.5">Hyprland (Neon Wayland)</text>
+
+      <text x="0" y="164" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">CPU:</text>
+      <text x="75" y="164" fill="#e2e8f0" class="mono-font" font-size="10.5">Neural Cortex 16-Core @ 5.4GHz</text>
+
+      <text x="0" y="182" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">GPU:</text>
+      <text x="75" y="182" fill="#e2e8f0" class="mono-font" font-size="10.5">RTX 5090 Holographic Matrix</text>
+
+      <text x="0" y="200" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">MEMORY:</text>
+      <text x="75" y="200" fill="#e2e8f0" class="mono-font" font-size="10.5">64GB DDR5 @ 6400MT/s</text>
+
+      <text x="0" y="218" fill="#00ff88" class="mono-font" font-size="10.5" font-weight="700">STATUS:</text>
+      <text x="75" y="218" fill="#00f7ff" class="mono-font" font-size="10.5" font-weight="700">CODING THE FUTURE // NO BUGS</text>
+
+      <!-- Terminal 8 Neon Color Blocks -->
+      <g transform="translate(0, 236)">
+        <rect x="0" y="0" width="22" height="13" rx="3" fill="#060814"/>
+        <rect x="26" y="0" width="22" height="13" rx="3" fill="#ff5555"/>
+        <rect x="52" y="0" width="22" height="13" rx="3" fill="#00ff88"/>
+        <rect x="78" y="0" width="22" height="13" rx="3" fill="#fde047"/>
+        <rect x="104" y="0" width="22" height="13" rx="3" fill="#00f7ff"/>
+        <rect x="130" y="0" width="22" height="13" rx="3" fill="#a855f7"/>
+        <rect x="156" y="0" width="22" height="13" rx="3" fill="#ff7000"/>
+        <rect x="182" y="0" width="22" height="13" rx="3" fill="#ffffff"/>
+      </g>
+    </g>
+
+    <!-- Blinking Terminal Prompt Ready for Input -->
+    <g transform="translate(0, 314)">
+      <line x1="0" y1="0" x2="430" y2="0" stroke="#1e293b" stroke-width="1"/>
+      <text x="0" y="20" fill="#00ff88" class="mono-font" font-size="11.5" font-weight="700">
+        fauzan@cyber-rig<tspan fill="#ffffff">:</tspan><tspan fill="#00f7ff">~</tspan><tspan fill="#ffffff">$ </tspan>
+        <tspan fill="#00f7ff" font-weight="900">█<animate attributeName="opacity" values="1;0;1" dur="0.9s" repeatCount="indefinite"/></tspan>
+      </text>
+    </g>
+  </g>
+</svg>'''
+
+
+# ==============================================================================
+# MAIN EXECUTION
+# ==============================================================================
+def main():
+    print("=" * 60)
+    print("[*] CYBERPUNK NEON ASSET GENERATOR (fauzan667)")
+    print("=" * 60)
+
+    # 0. Neon Bar Divider
+    validate_and_save(generate_neon_bar(), "neon-bar.svg")
+
+    # 1. Header & Status Bar
+    validate_and_save(generate_header(), "header.svg")
+
+    # 2. Tech Stack & Arsenal
+    validate_and_save(generate_tech_stack(), "tech-stack.svg")
+
+    # 3. Realistic Neon Viper Game
+    viper_svg = generate_neon_viper()
+    validate_and_save(viper_svg, "neon-viper.svg")
+    # Also save as github-contribution-grid-snake.svg in dist for workflow compatibility
+    with open(os.path.join(DIST_DIR, "github-contribution-grid-snake.svg"), "w", encoding="utf-8") as f:
+        f.write(viper_svg)
+    print("[+] Successfully generated: github-contribution-grid-snake.svg in dist/")
+
+    # 4. Metrics Dashboard
+    validate_and_save(generate_metrics_dashboard(), "metrics-dashboard.svg")
+
+    # 5. Holographic RPG Skill Radar & Cyber Terminal
+    validate_and_save(generate_cyber_terminal(), "cyber-terminal.svg")
+
+    print("=" * 60)
+    print("[SUCCESS] All Cyberpunk Neon SVG Assets successfully generated!")
+    print(f"[>] Target Assets: {ASSETS_DIR}")
+    print(f"[>] Target Dist:   {DIST_DIR}")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()
