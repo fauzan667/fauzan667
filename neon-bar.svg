@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 24" width="100%" height="24">
+  <defs>
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#060814" stop-opacity="0"/>
+      <stop offset="15%" stop-color="#060814" stop-opacity="0.2"/>
+      <stop offset="35%" stop-color="#a855f7"/>
+      <stop offset="50%" stop-color="#00f7ff"/>
+      <stop offset="65%" stop-color="#00ff88"/>
+      <stop offset="85%" stop-color="#060814" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#060814" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="barGlow" x="-20%" y="-100%" width="140%" height="300%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Base Line -->
+  <line x1="20" y1="12" x2="920" y2="12" stroke="#1e293b" stroke-width="1.2" opacity="0.4"/>
+
+  <!-- Glowing Neon Laser Line -->
+  <line x1="40" y1="12" x2="900" y2="12" stroke="url(#barGrad)" stroke-width="2.5" filter="url(#barGlow)"/>
+
+  <!-- Left and Right Cyber Reticles -->
+  <circle cx="160" cy="12" r="3.5" fill="#a855f7" filter="url(#barGlow)"/>
+  <circle cx="780" cy="12" r="3.5" fill="#00ff88" filter="url(#barGlow)"/>
+
+  <!-- Center Diamond HUD Anchor -->
+  <polygon points="470,6 476,12 470,18 464,12" fill="#00f7ff" filter="url(#barGlow)"/>
+  <circle cx="470" cy="12" r="1.5" fill="#ffffff"/>
+
+  <!-- Traversal Energy Pulse -->
+  <circle cx="470" cy="12" r="4.5" fill="#ffffff" filter="url(#barGlow)">
+    <animate attributeName="cx" values="180;760;180" dur="4.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="4.2s" repeatCount="indefinite"/>
+  </circle>
+</svg>
